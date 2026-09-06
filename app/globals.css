@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+/* BambooTails palette.
+   Warm off-white paper and near-black ink, so the silk — madder red,
+   amber, pale green — is the only real colour on the page. A luxury
+   house earns its look by withholding colour everywhere the product
+   isn't. */
+:root {
+  --background: #faf8f5;
+  --foreground: #16130f;
+  --muted: #6f675d;
+  --rule: #e2dcd2;
+  --accent: #7c2d1a; /* madder, drawn from the Hibiscus print */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-rule: var(--rule);
+  --color-accent: var(--accent);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-body);
+}
+
+/* Deliberately no dark-mode inversion. The photography is lit on black
+   and on white ground; flipping the page under it would fight the
+   product shots rather than flatter them. */
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Display type: the house voice. Tight tracking and low leading because
+   these are set large — at 48px+ the default line-height reads loose
+   and unconfident. */
+.display {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+/* Small-caps marker for sections and availability. The wide tracking is
+   what makes 11px type read as intentional rather than merely small. */
+.label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

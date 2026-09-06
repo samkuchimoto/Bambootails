@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#faf8f5" />
+    <title>BambooTails — offline</title>
+    <style>
+      /* Inlined and self-contained: this page is served when the network
+         is gone, so it cannot fetch a stylesheet or a webfont. */
+      :root { color-scheme: light; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        padding: 24px;
+        background: #faf8f5;
+        color: #16130f;
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        text-align: center;
+      }
+      h1 {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-weight: 300;
+        font-size: 34px;
+        letter-spacing: -0.02em;
+      }
+      p { margin: 0; max-width: 28rem; color: #6f675d; font-size: 14px; line-height: 1.6; }
+      button {
+        margin-top: 10px;
+        border: 0;
+        background: #16130f;
+        color: #faf8f5;
+        padding: 14px 32px;
+        font-family: inherit;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>BambooTails</h1>
+    <p>You're offline. The collection and the series need a connection — they'll be here when you're back.</p>
+    <button onclick="location.reload()">Try again</button>
+  </body>
+</html>
