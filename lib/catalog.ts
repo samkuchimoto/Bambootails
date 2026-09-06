@@ -25,20 +25,53 @@ export type Piece = {
   /** The story of the print — what a boutique card would say. */
   description: string;
   availability: Availability;
+  /** Which rung of the ladder. Only meaningful alongside a price. */
+  tier?: PriceTier;
   /** Only ever set for "atelier". Enforced by the type guard below. */
   priceEur?: number;
   images: { src: string; alt: string }[];
 };
 
-// Working figures, in one place so a pricing decision is one edit.
+// The price ladder.
 //
-// NOTE: these are placeholders taken from the brand's own commercial
-// notes and are almost certainly too low for hand-rolled silk — the
-// earlier site listed the scarves at $7,000, which was as clearly a
-// test value as this is a conservative one. Confirm before launch;
-// nothing else in the codebase hardcodes a price.
-export const SCARF_PRICE_EUR = 49;
-export const POCHETTE_PRICE_EUR = 29;
+// Set deliberately high, because the opening price is the brand, not a
+// conversion knob. A house that launches at €249 can add a €149 entry
+// piece, a seasonal accessory or a promotion later and still read as
+// luxury. A house that launches at €49 cannot credibly become a €249
+// house afterwards — the first number is the one customers remember,
+// and every later increase looks like the same scarf costing more.
+//
+// The asymmetry is what decides it: launching at €249 and discovering
+// €199 converts better is a cheap lesson. Launching at €49 and
+// discovering people would gladly have paid €249 is unrecoverable
+// margin on every unit already sold.
+//
+// Tiers exist ahead of the products that will fill them, so adding a
+// limited or numbered edition later is a data change and not a pricing
+// argument had again from scratch.
+export const PRICE_TIERS = {
+  /** Small silk goods and the pochette. */
+  accessory: 89,
+  /** A simpler cut, or a shorter run. Currently unused. */
+  premium: 149,
+  /** The flagship: hand-rolled artisan silk. Where the house begins. */
+  signature: 249,
+  /** A print that will not be cut again. */
+  limited: 299,
+  /** Numbered, with the number on the label. */
+  collector: 399,
+} as const;
+
+export type PriceTier = keyof typeof PRICE_TIERS;
+
+/** What each rung is called to a customer. */
+export const TIER_LABEL: Record<PriceTier, string> = {
+  accessory: "Accessory",
+  premium: "Premium",
+  signature: "Signature Artisan Silk",
+  limited: "Limited Edition",
+  collector: "Collector — numbered",
+};
 
 export const PIECES: Piece[] = [
   {
@@ -47,7 +80,8 @@ export const PIECES: Piece[] = [
     description:
       "Deep madder red, with gold palms opening across the silk. The first print BambooTails ever cut, and still the one people reach for.",
     availability: "atelier",
-    priceEur: SCARF_PRICE_EUR,
+    tier: "signature",
+    priceEur: PRICE_TIERS.signature,
     images: [
       {
         src: "/images/scarf-hibiscus-hero.jpg",
@@ -65,7 +99,8 @@ export const PIECES: Piece[] = [
     description:
       "Amber, coral and old gold, layered into chrysanthemum heads. The warmest print in the atelier — it reads almost metallic in low light.",
     availability: "atelier",
-    priceEur: SCARF_PRICE_EUR,
+    tier: "signature",
+    priceEur: PRICE_TIERS.signature,
     images: [
       {
         src: "/images/scarf-chrysanthemum-01.jpg",
@@ -87,7 +122,8 @@ export const PIECES: Piece[] = [
     description:
       "Pale green and cream, drawn from pressed spring flowers. The quietest of the three, and the one that suits a pale coat best.",
     availability: "atelier",
-    priceEur: SCARF_PRICE_EUR,
+    tier: "signature",
+    priceEur: PRICE_TIERS.signature,
     images: [
       {
         src: "/images/scarf-meadow-01.jpg",
@@ -108,11 +144,12 @@ export const PIECES: Piece[] = [
     description:
       "Hand-loomed hemp, cut and sewn to hold one scarf. Every order ships in one; this is a spare, for the second scarf or the drawer.",
     availability: "atelier",
-    priceEur: POCHETTE_PRICE_EUR,
+    tier: "accessory",
+    priceEur: PRICE_TIERS.accessory,
     images: [
       {
         src: "/images/product-packaging.jpg",
-        alt: "The Heritage Hemp Pochette in natural hand-loomed linen, with a silk scarf folded inside",
+        alt: "The Heritage Hemp Pochette in natural hand-loomed hemp, with a silk scarf folded inside",
       },
     ],
   },

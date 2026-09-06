@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BRAND } from "@/config/brand";
-import { PIECES, CONCEPTS, SCARF_PRICE_EUR } from "@/lib/catalog";
+import { PIECES, CONCEPTS, PRICE_TIERS } from "@/lib/catalog";
 import { MASCOTS } from "@/lib/universe";
 import { NewsletterForm } from "@/components/NewsletterForm";
 
@@ -179,8 +179,15 @@ export default function Home() {
           <div>
             <h2 className="display text-3xl sm:text-5xl">One scarf. Made properly.</h2>
             <p className="mt-4 max-w-md text-sm leading-relaxed text-[var(--muted)]">
-              Real silk, cut and hand-rolled in small batches, sent in a hand-loomed linen pouch. €
-              {SCARF_PRICE_EUR}, in three prints.
+              Artisan silk, cut and hand-rolled one at a time, sent in a hand-loomed hemp pochette.
+              Three prints, made to order.
+            </p>
+            {/* The price is stated as where the house begins, not as a
+                figure to be justified. At this level the number is
+                positioning: quoting it plainly is more convincing than
+                explaining it. */}
+            <p className="mt-6 label text-[var(--muted)]">
+              The Signature scarf — €{PRICE_TIERS.signature}
             </p>
             <Link
               href="/collection"

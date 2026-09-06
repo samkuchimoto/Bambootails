@@ -65,16 +65,16 @@ export default function Atelier() {
         <div className="relative aspect-square w-full bg-[var(--rule)]">
           <Image
             src="/images/product-packaging.jpg"
-            alt="A BambooTails silk scarf folded inside its hand-loomed linen pouch"
+            alt="A BambooTails silk scarf folded inside its hand-loomed hemp pochette"
             fill
             sizes="(max-width: 640px) 100vw, 50vw"
             className="object-cover"
           />
         </div>
         <div>
-          <h2 className="display text-3xl sm:text-4xl">It arrives in linen</h2>
+          <h2 className="display text-3xl sm:text-4xl">It arrives in hemp</h2>
           <p className="mt-4 max-w-md text-sm leading-relaxed text-[var(--muted)]">
-            Every scarf is sent folded in a hand-loomed linen pouch — no plastic, no printed carton
+            Every scarf is sent folded in a hand-loomed hemp pochette — no plastic, no printed carton
             that goes straight in the bin. The pouch is meant to be kept and used; it is where the
             scarf lives between wearings.
           </p>

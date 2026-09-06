@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { PIECES, isBuyable } from "@/lib/catalog";
+import { PIECES, isBuyable, TIER_LABEL } from "@/lib/catalog";
 import { BRAND } from "@/config/brand";
 import { NewsletterForm } from "@/components/NewsletterForm";
 
@@ -62,7 +62,11 @@ export default async function PiecePage({ params }: { params: Promise<{ slug: st
         {/* Sticky on desktop so the price and the buy action stay
             reachable however far the photographs run. */}
         <div className="lg:sticky lg:top-8 lg:self-start">
-          <h1 className="display text-4xl sm:text-5xl">{piece.name}</h1>
+          {/* The tier is named above the piece. At this price the
+              customer is buying a position in a house, not a scarf, and
+              naming the rung is what makes the number legible. */}
+          {piece.tier && <p className="label text-[var(--muted)]">{TIER_LABEL[piece.tier]}</p>}
+          <h1 className="display mt-2 text-4xl sm:text-5xl">{piece.name}</h1>
           {isBuyable(piece) && (
             <p className="mt-3 text-lg text-[var(--muted)]">€{piece.priceEur}</p>
           )}
@@ -74,7 +78,7 @@ export default async function PiecePage({ params }: { params: Promise<{ slug: st
               ["Made", "By hand, in small batches"],
               ["Sizing", "Fits small to medium dogs — and a human neck"],
               ["Care", "Dry clean, or cold hand wash and hang"],
-              ["Sent in", "A hand-loomed linen pouch"],
+              ["Sent in", "The Heritage Hemp Pochette"],
             ].map(([term, detail]) => (
               <div key={term} className="flex gap-6 py-3">
                 <dt className="label w-28 shrink-0 pt-0.5 text-[var(--muted)]">{term}</dt>
