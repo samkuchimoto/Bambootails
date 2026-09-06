@@ -15,11 +15,11 @@ export const metadata: Metadata = {
 const PORTRAITS: Record<string, { src: string; alt: string }> = {
   bamboo: {
     src: "/images/scarf-hibiscus-hero.jpg",
-    alt: "Bamboo, a cream Pomeranian, seated in the Hibiscus silk scarf",
+    alt: "Bamboo, a cream Pomeranian, seated in the Golden Palms silk scarf",
   },
   tails: {
     src: "/images/scarf-meadow-03.jpg",
-    alt: "Tails, a cream Pomeranian, wearing the Meadow scarf tied over the head",
+    alt: "Tails, a cream Pomeranian, wearing the Orchid scarf tied over the head",
   },
 };
 

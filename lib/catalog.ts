@@ -11,6 +11,11 @@
 // customer trusting that what they're shown is what they'll receive —
 // blurring an AI concept into the shop would spend that trust once and
 // never get it back.
+//
+// Product names are BambooTails' own, carried over from the earlier
+// site: Golden Palms, Chrysanthemum, Orchid, Heritage Hemp Pochette.
+// Renaming a customer's own products for tidiness would break every
+// link, invoice and conversation that already used them.
 
 export type Availability = "atelier" | "soon" | "concept";
 
@@ -25,26 +30,32 @@ export type Piece = {
   images: { src: string; alt: string }[];
 };
 
-// One number, one place. Taken from the working figure in the brand's
-// own commercial notes rather than invented here.
+// Working figures, in one place so a pricing decision is one edit.
+//
+// NOTE: these are placeholders taken from the brand's own commercial
+// notes and are almost certainly too low for hand-rolled silk — the
+// earlier site listed the scarves at $7,000, which was as clearly a
+// test value as this is a conservative one. Confirm before launch;
+// nothing else in the codebase hardcodes a price.
 export const SCARF_PRICE_EUR = 49;
+export const POCHETTE_PRICE_EUR = 29;
 
 export const PIECES: Piece[] = [
   {
-    slug: "hibiscus",
-    name: "Hibiscus",
+    slug: "golden-palms",
+    name: "Golden Palms",
     description:
-      "Deep madder red, with gold hibiscus opening across the silk. The first print BambooTails ever cut, and still the one people reach for.",
+      "Deep madder red, with gold palms opening across the silk. The first print BambooTails ever cut, and still the one people reach for.",
     availability: "atelier",
     priceEur: SCARF_PRICE_EUR,
     images: [
       {
         src: "/images/scarf-hibiscus-hero.jpg",
-        alt: "A cream Pomeranian wearing the Hibiscus silk scarf in red and gold, seated on black leather",
+        alt: "A cream Pomeranian wearing the Golden Palms silk scarf in red and gold, seated on black leather",
       },
       {
         src: "/images/scarf-detail-knot.jpg",
-        alt: "Close detail of the hand-rolled hem and knot of the Hibiscus silk scarf",
+        alt: "Close detail of the hand-rolled hem and knot of the Golden Palms silk scarf",
       },
     ],
   },
@@ -71,8 +82,8 @@ export const PIECES: Piece[] = [
     ],
   },
   {
-    slug: "meadow",
-    name: "Meadow",
+    slug: "orchid",
+    name: "Orchid",
     description:
       "Pale green and cream, drawn from pressed spring flowers. The quietest of the three, and the one that suits a pale coat best.",
     availability: "atelier",
@@ -80,19 +91,36 @@ export const PIECES: Piece[] = [
     images: [
       {
         src: "/images/scarf-meadow-01.jpg",
-        alt: "A cream Pomeranian standing, wearing the Meadow silk scarf in pale green and cream",
+        alt: "A cream Pomeranian standing, wearing the Orchid silk scarf in pale green and cream",
       },
       {
         src: "/images/scarf-meadow-03.jpg",
-        alt: "The Meadow silk scarf worn over the head like a headscarf",
+        alt: "The Orchid silk scarf worn over the head like a headscarf",
+      },
+    ],
+  },
+  {
+    // A real product in its own right, not only the packaging. It was
+    // sold separately on the earlier site and there is a proper shot of
+    // it, so it belongs in the collection rather than in a footnote.
+    slug: "heritage-hemp-pochette",
+    name: "Heritage Hemp Pochette",
+    description:
+      "Hand-loomed hemp, cut and sewn to hold one scarf. Every order ships in one; this is a spare, for the second scarf or the drawer.",
+    availability: "atelier",
+    priceEur: POCHETTE_PRICE_EUR,
+    images: [
+      {
+        src: "/images/product-packaging.jpg",
+        alt: "The Heritage Hemp Pochette in natural hand-loomed linen, with a silk scarf folded inside",
       },
     ],
   },
 ];
 
-// Not yet made, and honest about it. These carry no price and no cart —
-// only a way to say "tell me when this exists", which is also the
-// cheapest possible demand signal before committing to a production run.
+// Not yet made, and honest about it. No price and no cart — only a way
+// to say "tell me when this exists", which is also the cheapest possible
+// demand signal before committing to a production run.
 export const COMING_SOON: Piece[] = [
   {
     slug: "matching-human",
@@ -128,18 +156,15 @@ export const CONCEPTS: Piece[] = [
     availability: "concept",
     images: [],
   },
-  {
-    slug: "travel-pouch",
-    name: "The Travel Pouch",
-    description: "Hand-loomed linen, to keep a scarf clean in a bag. The most likely of these to become real.",
-    availability: "concept",
-    images: [],
-  },
 ];
 
 /** Only atelier pieces may be bought. Used everywhere a price renders. */
 export function isBuyable(piece: Piece): piece is Piece & { priceEur: number } {
   return piece.availability === "atelier" && typeof piece.priceEur === "number";
+}
+
+export function findPiece(slug: string): Piece | undefined {
+  return [...PIECES, ...COMING_SOON, ...CONCEPTS].find((p) => p.slug === slug);
 }
 
 export const AVAILABILITY_LABEL: Record<Availability, string> = {

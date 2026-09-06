@@ -4,7 +4,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PIECES, isBuyable } from "@/lib/catalog";
 import { BRAND } from "@/config/brand";
-import { BuyButton } from "@/components/BuyButton";
 import { NewsletterForm } from "@/components/NewsletterForm";
 
 // Only real pieces get a page. A concept has no detail view by design —
@@ -84,8 +83,19 @@ export default async function PiecePage({ params }: { params: Promise<{ slug: st
             ))}
           </dl>
 
+          {/* Order is a route, not a modal — it survives a refresh, can
+              be linked to from an episode, and leaves the product page
+              about the product. */}
           <div className="mt-8">
-            <BuyButton pieceName={piece.name} />
+            <Link
+              href={`/order/${piece.slug}`}
+              className="label inline-block bg-[var(--foreground)] px-8 py-4 text-[var(--background)] transition-opacity hover:opacity-85"
+            >
+              Order — €{piece.priceEur}
+            </Link>
+            <p className="mt-3 max-w-sm text-xs leading-relaxed text-[var(--muted)]">
+              Made to order. We confirm the fit by email before anything is charged.
+            </p>
           </div>
 
           <div className="mt-12 border-t border-[var(--rule)] pt-8">

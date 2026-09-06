@@ -25,7 +25,7 @@ export const MASCOTS: Mascot[] = [
     slug: "bamboo",
     name: "Bamboo",
     role: "The one who cares deeply about being looked at",
-    bio: "Bamboo believes every room is a runway and every doorway an entrance. He is vain in the way that is forgivable, because he is also the first to share. He chose the Hibiscus print himself and has not stopped mentioning it.",
+    bio: "Bamboo believes every room is a runway and every doorway an entrance. He is vain in the way that is forgivable, because he is also the first to share. He chose the Golden Palms print himself and has not stopped mentioning it.",
     traits: ["Cream coat, dark eyes", "Sits square, chin lifted", "Always wears the scarf knotted at the shoulder"],
   },
   {
@@ -58,7 +58,7 @@ export const EPISODES: Episode[] = [
       "Bamboo and Tails step off the train at Gare du Nord with one trunk between them and no appointments.",
     status: "in-production",
     seconds: 45,
-    featuredSlug: "hibiscus",
+    featuredSlug: "golden-palms",
   },
   {
     number: 2,
@@ -67,7 +67,7 @@ export const EPISODES: Episode[] = [
       "Tails finds a bolt of madder-red silk in a shop that is closing. Bamboo claims he found it.",
     status: "planned",
     seconds: 50,
-    featuredSlug: "hibiscus",
+    featuredSlug: "golden-palms",
   },
   {
     number: 3,
@@ -84,7 +84,7 @@ export const EPISODES: Episode[] = [
     synopsis: "Tails is photographed alone for a magazine. Bamboo is completely fine about it.",
     status: "planned",
     seconds: 40,
-    featuredSlug: "meadow",
+    featuredSlug: "orchid",
   },
 ];
 
