@@ -207,27 +207,27 @@ export const SILK_ROAD = {
   strands: [
     {
       name: "The Seed",
-      region: "Chiang Mai — San Kamphaeng",
+      region: "Chiang Mai, Bangkok",
       claim:
-        "The loom, the relic, and the Isan Mudmee resist that reached the north in somebody's hands and never went home. Tails carries it because he was in the room.",
+        "The loom, the relic, and the Isan Mudmee resist that reached the north in somebody's hands and never went home. Tao carries it because he was in the room. Kuma keeps the room. Kai knows every door in Bangkok and has outlasted most of them.",
     },
     {
       name: "The Craft",
       region: "Tokyo, Kyoto",
       claim:
-        "Guild families who moved between Ayutthaya, Kyoto and Edo on the same route the silk did. They hold the hem, the dye vat and the shuttle. Their names are Japanese because their teachers were.",
+        "Guild families who moved between Ayutthaya, Kyoto and Edo on the same route the silk did — Miko's hem, Sora's dye vat, Ren's ledger. Their names are Japanese because their teachers were, and their species differ because craft was never a bloodline.",
     },
     {
       name: "The Crucible",
       region: "Paris, Milan",
       claim:
-        "The salons that decide what counts. Bamboo, Louis, Coco and Luna are of that world — which is precisely why their judgement carries, and why leaving it cost them something.",
+        "The salons that decide what counts. Lumi, Bao, Luna and Yuki are of that world — which is precisely why their judgement carries, and why leaving it cost them something.",
     },
     {
       name: "The Passage",
       region: "New York, Seoul",
       claim:
-        "The people who move it. Nori knows the freight door, Pika has never put a package down, Nami re-routes the storm. No route, no house.",
+        "The ones who move it. Chika plans the route, Pika has never put a package down, Hikari turns up on the far shore at 3am without being asked. No passage, no house.",
     },
   ],
 } as const;

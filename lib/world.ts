@@ -131,7 +131,7 @@ export const TECHNIQUES: Technique[] = [
     slug: "first-light-dye",
     name: "First-Light Dye",
     city: "Kyoto",
-    master: "Hana",
+    master: "Sora",
     effect:
       "Dyeing in the one hour of morning when the light does not lie about a colour. What is matched at noon is wrong by evening.",
     cost: "One hour a day. Miss it and the batch waits until tomorrow.",

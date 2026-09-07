@@ -9,7 +9,7 @@ import { NewsletterForm } from "@/components/NewsletterForm";
 export const metadata: Metadata = {
   title: "The Series",
   description:
-    "Five dogs decide to build a fashion house. Nobody believes them. Told in sagas, from a loom broken up for scrap in Chiang Mai to a boardroom in New York.",
+    "Two dogs decide to build a fashion house. Nobody believes them. Told in sagas, from a loom broken up for scrap in Chiang Mai to a boardroom in New York.",
 };
 
 export default function Series() {
@@ -22,12 +22,13 @@ export default function Series() {
         <div className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
           <p className="label text-white/40">Chiang Mai · Bangkok · Paris · Tokyo · Kyoto · Milan · New York · Seoul</p>
           <h1 className="display mt-5 max-w-4xl text-5xl sm:text-7xl lg:text-8xl">
-            Five dogs decide to build a fashion house.
+            Two dogs decide to build a fashion house.
           </h1>
           <p className="display mt-4 text-2xl text-white/50 sm:text-4xl">Nobody believes them.</p>
           <p className="mt-8 max-w-xl leading-relaxed text-white/60">
-            Told in sagas, a minute at a time. The crew grows one city at a time, the threads run
-            underneath, and nothing here is written to finish — a house is not a thing you complete.
+            Told in sagas, a minute at a time. The guild grows one city at a time — and the masters
+            who join are a cat, a chick, a tortoise, a panda. The threads run underneath, and
+            nothing here is written to finish; a house is not a thing you complete.
           </p>
         </div>
       </section>
@@ -187,10 +188,10 @@ export default function Series() {
                               <div className="relative aspect-square w-full overflow-hidden rounded-full bg-[var(--rule)]">
                                 <Image
                                   src={mascot.portrait}
-                                  alt={`${mascot.name}, the ${mascot.city} dog`}
+                                  alt={`${mascot.name}, the ${mascot.species} from ${mascot.city}`}
                                   fill
                                   sizes="96px"
-                                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                  className="object-contain p-1.5 transition-transform duration-500 group-hover:scale-110"
                                 />
                               </div>
                               <p className="display mt-1.5 text-base">{mascot.name}</p>

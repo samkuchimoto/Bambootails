@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BRAND } from "@/config/brand";
 import { PIECES, CONCEPTS, COMING_SOON, PRICE_TIERS } from "@/lib/catalog";
-import { CORE_CAST, WIDER_PACK, EPISODES, EPISODE_STATUS_LABEL, mascotBySlug } from "@/lib/universe";
+import { FOUNDERS, GUILD, EPISODES, EPISODE_STATUS_LABEL, mascotBySlug } from "@/lib/universe";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { ConceptVote } from "@/components/ConceptVote";
 
@@ -60,14 +60,14 @@ export default function Home() {
       {/* THE CAST. High on the page on purpose — this is the half of the
           brand that isn't a shop, and burying it behind an About link is
           what made the site read as a storefront. Nobody wants a scarf
-          from a house they've never heard of; they want the scarf Bamboo
+          from a house they've never heard of; they want the scarf Lumi
           wears. */}
       <section className="border-b border-[var(--rule)] bg-[#16130f] text-[#faf8f5]">
         <div className="mx-auto max-w-6xl px-6 py-16 sm:py-24">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="label text-white/40">The house</p>
-              <h2 className="display mt-3 text-3xl sm:text-5xl">Five dogs, five cities</h2>
+              <h2 className="display mt-3 text-3xl sm:text-5xl">Two founders, twelve masters</h2>
             </div>
             <Link
               href="/mascots"
@@ -77,16 +77,16 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="mt-12 grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
-            {CORE_CAST.map((mascot) => (
+          <div className="mt-12 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-10">
+            {FOUNDERS.map((mascot) => (
               <Link key={mascot.slug} href={`/mascots#${mascot.slug}`} className="group block">
                 <div className="relative aspect-square w-full overflow-hidden rounded-full bg-white/5">
                   <Image
                     src={mascot.portrait}
-                    alt={`${mascot.name}, the ${mascot.city} dog`}
+                    alt={`${mascot.name}, the ${mascot.species} from ${mascot.city}`}
                     fill
                     sizes="(max-width: 640px) 45vw, 20vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="object-contain p-3 transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
                 <p className="display mt-4 text-2xl">{mascot.name}</p>
@@ -96,13 +96,18 @@ export default function Home() {
             ))}
           </div>
 
-          {/* The wider pack, smaller. Showing the whole world exists
-              without competing with the five who carry the story — a
-              cast of fourteen at equal weight is a crowd, not a crew. */}
+          {/* The guild, smaller. Showing the whole world exists without
+              competing with the two who carry the story — a cast of
+              fourteen at equal weight is a crowd, not a crew. Their
+              value here is the row of silhouettes: a cat, a chick, a
+              tortoise and a penguin read apart at 80 pixels, which is
+              precisely the argument for not casting fourteen dogs. */}
           <div className="mt-16 border-t border-white/10 pt-10">
-            <p className="label text-white/40">And the pack — Kyoto, Seoul, Bangkok, Paris, Milan</p>
+            <p className="label text-white/40">
+              And the guild — twelve species, eight cities, one craft each
+            </p>
             <div className="mt-6 flex flex-wrap gap-x-6 gap-y-8">
-              {WIDER_PACK.map((mascot) => (
+              {GUILD.map((mascot) => (
                 <Link
                   key={mascot.slug}
                   href={`/mascots#${mascot.slug}`}
@@ -111,10 +116,10 @@ export default function Home() {
                   <div className="relative aspect-square w-full overflow-hidden rounded-full bg-white/5">
                     <Image
                       src={mascot.portrait}
-                      alt={`${mascot.name}, a ${mascot.breed} from ${mascot.city}`}
+                      alt={`${mascot.name}, the ${mascot.species} from ${mascot.city}`}
                       fill
                       sizes="80px"
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="object-contain p-1.5 transition-transform duration-500 group-hover:scale-110"
                     />
                   </div>
                   <p className="display mt-2 text-base">{mascot.name}</p>

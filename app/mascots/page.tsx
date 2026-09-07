@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { CORE_CAST, MASCOT_LINE, WIDER_PACK, episodesFor } from "@/lib/universe";
+import { FOUNDERS, GUILD, episodesFor } from "@/lib/universe";
 import { SILK_ROAD } from "@/lib/production";
 import { ConceptVote } from "@/components/ConceptVote";
 
 export const metadata: Metadata = {
   title: "The House",
   description:
-    "Fourteen dogs, eight cities, one fashion house — and thirteen mascots in felt.",
+    "Two founders, twelve masters, eight cities. An unlikely alliance of different creatures keeping hand-craft alive.",
 };
 
 export default function Mascots() {
@@ -20,23 +20,23 @@ export default function Mascots() {
             Chiang Mai · Bangkok · Paris · Tokyo · Kyoto · Milan · New York · Seoul
           </p>
           <h1 className="display mt-5 max-w-3xl text-5xl sm:text-7xl">
-            Different breeds.
+            An unlikely
             <br />
-            Same dream.
+            alliance.
           </h1>
           <p className="mt-7 max-w-xl leading-relaxed text-white/60">
-            Five of them started it. The rest arrived one city at a time, and every one of them
-            brought something the house could not have made without them.
+            Two dogs founded the house. The masters who joined it are a cat, a chick, a tortoise, a
+            panda and a penguin — because when the factories forgot how to do this, the ones who
+            remembered were not who anybody expected.
           </p>
         </div>
       </section>
 
       <div className="mx-auto max-w-6xl px-6 py-16 sm:py-24">
-        {/* The five who carry the story, at full weight. */}
-        {/* The Silk Road, stated before the cast rather than after it.
-            The objection to a Chiang Mai house with a Tokyo hemmer and a
-            Milan critic is not that the names are diverse — it is that
-            nothing explains them, and unexplained diversity reads as
+        {/* The route, stated before the cast rather than after it. The
+            objection to a Chiang Mai house with a Tokyo hemmer and a
+            Milan critic was never that the cast is diverse — it is that
+            nothing explained it, and unexplained diversity reads as
             arbitrary. Naming the route first turns a cast into a
             diaspora, and it happens to be how silk actually moved. */}
         <section className="border-b border-[var(--rule)] pb-16">
@@ -57,9 +57,10 @@ export default function Mascots() {
           </ol>
         </section>
 
-        <p className="label mt-16 text-[var(--muted)]">The crew</p>
+        {/* The two who carry the story, at full weight. */}
+        <p className="label mt-20 text-[var(--muted)]">The founders</p>
         <div className="mt-10 space-y-24">
-          {CORE_CAST.map((mascot, index) => {
+          {FOUNDERS.map((mascot, index) => {
             const appearances = episodesFor(mascot.slug);
             return (
               <article
@@ -69,14 +70,12 @@ export default function Mascots() {
               >
                 <div
                   className={`relative aspect-square w-full max-w-md ${
-                    // Alternating sides so five long profiles don't read
-                    // as one undifferentiated column.
                     index % 2 === 1 ? "lg:order-2 lg:ml-auto" : ""
                   }`}
                 >
                   <Image
                     src={mascot.portrait}
-                    alt={`${mascot.name}, a ${mascot.breed} from ${mascot.city}`}
+                    alt={`${mascot.name}, the ${mascot.species} from ${mascot.city}`}
                     fill
                     priority={index === 0}
                     sizes="(max-width: 1024px) 100vw, 50vw"
@@ -86,15 +85,14 @@ export default function Mascots() {
 
                 <div>
                   <p className="label text-[var(--muted)]">
-                    {mascot.city} · {mascot.breed}
+                    {mascot.city} · {mascot.species}
                   </p>
                   <h2 className="display mt-3 text-4xl sm:text-6xl">{mascot.name}</h2>
                   <p className="display mt-1 text-xl text-[var(--muted)]">{mascot.role}</p>
                   <p className="mt-6 max-w-md leading-relaxed text-[var(--muted)]">{mascot.bio}</p>
 
-                  {/* What they bring to the crew, stated plainly. A
-                      character in a serial needs a function, not only a
-                      personality. */}
+                  {/* What they bring, stated plainly. A character in a
+                      serial needs a function, not only a personality. */}
                   <p className="mt-5 max-w-md border-l-2 border-[var(--accent)] pl-4 text-sm leading-relaxed">
                     <span className="label text-[var(--accent)]">Brings</span>
                     <br />
@@ -102,7 +100,7 @@ export default function Mascots() {
                   </p>
 
                   <ul className="mt-7 flex flex-wrap gap-2">
-                    {mascot.traits.map((trait) => (
+                    {[mascot.carries, ...mascot.traits].map((trait) => (
                       <li
                         key={trait}
                         className="label border border-[var(--rule)] px-3.5 py-2 text-[var(--muted)]"
@@ -135,97 +133,67 @@ export default function Mascots() {
           })}
         </div>
 
-        {/* The wider pack, as a grid. Present and findable, without
-            competing with the five who carry the story. */}
+        {/* The guild. Twelve species, twelve silhouettes, and a vote on
+            each — which one gets manufactured first is the single most
+            expensive guess in the plan, and fifty units of the wrong one
+            is real money sitting on a shelf. The same endpoint the
+            concepts use, so the answer arrives as a list sorted by
+            demand. */}
         <section className="mt-28 border-t-2 border-[var(--foreground)] pt-10">
-          <p className="label text-[var(--muted)]">The pack</p>
-          <h2 className="display mt-3 text-3xl sm:text-5xl">Nine more, in six cities</h2>
+          <p className="label text-[var(--accent)]">The guild</p>
+          <h2 className="display mt-3 text-3xl sm:text-5xl">Twelve masters, twelve species</h2>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
-            The house could not run without them, and most of them would say they don&apos;t work
-            for it at all.
+            Each holds one craft, in one city, and stands for one idea — which is what lets any of
+            them carry a twenty-second story alone, and what makes a set of twelve a set worth
+            completing.
           </p>
 
-          <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3">
-            {WIDER_PACK.map((mascot) => (
-              <article key={mascot.slug} id={mascot.slug} className="scroll-mt-28">
-                <div className="relative aspect-square w-full overflow-hidden bg-[var(--rule)]">
-                  <Image
-                    src={mascot.portrait}
-                    alt={`${mascot.name}, a ${mascot.breed} from ${mascot.city}`}
-                    fill
-                    sizes="(max-width: 640px) 45vw, 30vw"
-                    className="object-cover"
-                  />
-                </div>
-                <h3 className="display mt-4 text-2xl">{mascot.name}</h3>
-                <p className="label mt-1 text-[var(--muted)]">
-                  {mascot.city} · {mascot.breed}
-                </p>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">{mascot.bio}</p>
-                <p className="mt-3 text-xs leading-relaxed text-[var(--accent)]">{mascot.gift}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* The mascot line. Deliberately a different visual register
-            from everything above it: photoreal dogs in real silk carry
-            the house, needle-felt characters carry the pocket. Showing
-            them on the same page with the border stated out loud is what
-            keeps the collectible from reading as a cheap version of the
-            scarf — they are not the same object at two prices. */}
-        <section className="mt-28 border-t-2 border-[var(--foreground)] pt-10">
-          <p className="label text-[var(--accent)]">The mascot line</p>
-          <h2 className="display mt-3 text-3xl sm:text-5xl">Thirteen, in felt</h2>
-          <p className="mt-4 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
-            The other half of the house. A scarf is a considered purchase; a mascot fits in a
-            pocket, on a bag, on a desk. Each one carries a single idea, which is also what makes
-            them easy to tell a very short story about.
-          </p>
-
-          <ul className="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
-            {MASCOT_LINE.map((toy) => (
-              <li key={toy.slug}>
+          <ul className="mt-12 grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 lg:grid-cols-4">
+            {GUILD.map((mascot) => (
+              <li key={mascot.slug} id={mascot.slug} className="scroll-mt-28">
                 <div className="relative aspect-square w-full bg-[#f4f1ec]">
                   <Image
-                    src={toy.image}
-                    alt={`${toy.name}, the ${toy.species} mascot`}
+                    src={mascot.portrait}
+                    alt={`${mascot.name}, the ${mascot.species} from ${mascot.city}`}
                     fill
                     sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 22vw"
                     className="object-contain p-3"
                   />
                 </div>
-                <h3 className="display mt-3 text-xl">{toy.name}</h3>
+                <h3 className="display mt-3 text-2xl">{mascot.name}</h3>
                 <p className="label mt-1 text-[var(--muted)]">
-                  {toy.species} · {toy.carries}
+                  {mascot.species} · {mascot.city}
                 </p>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">{toy.line}</p>
-
-                {/* A vote per character, not one for the line. Which
-                    mascot gets manufactured first is the single most
-                    expensive guess in the whole plan, and this is the
-                    cheapest way to stop guessing: the same endpoint the
-                    concepts already use, so the answer arrives as an
-                    email list sorted by demand. */}
+                <p className="label mt-1 text-[var(--accent)]">
+                  {mascot.role} · {mascot.carries}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">{mascot.bio}</p>
                 <div className="mt-3">
-                  <ConceptVote slug={`mascot-${toy.slug}`} name={toy.name} />
+                  <ConceptVote slug={`mascot-${mascot.slug}`} name={mascot.name} />
                 </div>
               </li>
             ))}
           </ul>
 
-          <p className="mt-10 max-w-xl text-xs leading-relaxed text-[var(--muted)]">
-            Not yet made — the characters are finished, the line is not. Vote for the one you want
-            and we make that one first: fifty of it, and you hear before anyone else.
+          <p className="mt-12 max-w-xl text-xs leading-relaxed text-[var(--muted)]">
+            The figures are not yet made — the characters are finished, the line is not. Vote for
+            the one you want and we make that one first: fifty of it, and you hear before anyone
+            else.
           </p>
         </section>
 
-        <div className="mt-24 border-t border-[var(--rule)] pt-10">
+        <div className="mt-24 flex flex-wrap gap-x-8 gap-y-3 border-t border-[var(--rule)] pt-10">
           <Link
             href="/series"
             className="label border-b border-[var(--foreground)] pb-1 transition-opacity hover:opacity-60"
           >
             Read the sagas
+          </Link>
+          <Link
+            href="/production"
+            className="label border-b border-[var(--foreground)] pb-1 transition-opacity hover:opacity-60"
+          >
+            How the figures would be made
           </Link>
         </div>
       </div>
