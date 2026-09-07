@@ -13,7 +13,7 @@ import { BRAND } from "@/config/brand";
 const LINKS = [
   { href: "/collection", label: "Collection" },
   { href: "/atelier", label: "Atelier" },
-  { href: "/mascots", label: "Bamboo & Tails" },
+  { href: "/mascots", label: "The House" },
   { href: "/series", label: "The Series" },
 ];
 
