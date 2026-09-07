@@ -8,7 +8,7 @@ import { NewsletterForm } from "@/components/NewsletterForm";
 export const metadata: Metadata = {
   title: "The Series",
   description:
-    "Five dogs decide to build a fashion house. Nobody believes them. Told in sagas, from Bangkok to New York.",
+    "Five dogs decide to build a fashion house. Nobody believes them. Told in sagas, from a loom broken up for scrap in Chiang Mai to a boardroom in New York.",
 };
 
 export default function Series() {
@@ -19,7 +19,7 @@ export default function Series() {
           does. */}
       <section className="bg-[#16130f] text-[#faf8f5]">
         <div className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
-          <p className="label text-white/40">Bangkok · Paris · Tokyo · Kyoto · Milan · New York · Seoul</p>
+          <p className="label text-white/40">Chiang Mai · Bangkok · Paris · Tokyo · Kyoto · Milan · New York · Seoul</p>
           <h1 className="display mt-5 max-w-4xl text-5xl sm:text-7xl lg:text-8xl">
             Five dogs decide to build a fashion house.
           </h1>
@@ -109,6 +109,18 @@ export default function Series() {
 
                         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[var(--muted)]">
                           {episode.synopsis}
+                        </p>
+
+                        {/* What is actually at risk. Every critique of
+                            the first draft landed here: without a cost,
+                            "never give up" is a caption rather than a
+                            story. Naming the stake per episode is also
+                            the production brief — if this line is empty,
+                            the episode is not ready to film. */}
+                        <p className="mt-5 max-w-2xl border-l-2 border-[var(--accent)] pl-4 text-sm leading-relaxed">
+                          <span className="label text-[var(--accent)]">At stake</span>
+                          <br />
+                          {episode.stakes}
                         </p>
 
                         <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2">

@@ -14,7 +14,7 @@ export default function Mascots() {
       <section className="bg-[#16130f] text-[#faf8f5]">
         <div className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
           <p className="label text-white/40">
-            Bangkok · Chiang Mai · Paris · Tokyo · Kyoto · Milan · New York · Seoul
+            Chiang Mai · Bangkok · Paris · Tokyo · Kyoto · Milan · New York · Seoul
           </p>
           <h1 className="display mt-5 max-w-3xl text-5xl sm:text-7xl">
             Different breeds.

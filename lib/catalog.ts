@@ -30,6 +30,24 @@ export type Piece = {
   /** Only ever set for "atelier". Enforced by the type guard below. */
   priceEur?: number;
   images: { src: string; alt: string }[];
+  /**
+   * What made it, and who. This is the piece that turns a scarf into an
+   * artifact: a buyer can read which silk, which techniques, and which
+   * chapter of the story it belongs to.
+   *
+   * It is also the honest answer to "why €249" — not an argument about
+   * value, but a bill of materials in hours and mastery. Every entry
+   * here is a real constraint from lib/world.ts, so the lore and the
+   * production reality are the same document.
+   */
+  provenance?: {
+    silkGrade: string;
+    techniques: string[];
+    /** The episode it appears in, if any. Story to object. */
+    episodeNumber?: number;
+    /** Hours of hand work in one piece. */
+    handHours: number;
+  };
 };
 
 // The price ladder.
@@ -92,6 +110,12 @@ export const PIECES: Piece[] = [
         alt: "Close detail of the hand-rolled hem and knot of the Golden Palms silk scarf",
       },
     ],
+    provenance: {
+      silkGrade: "Four-Ply Thai",
+      techniques: ["The Hand-Rolled Hem", "First-Light Dye"],
+      episodeNumber: 1,
+      handHours: 6,
+    },
   },
   {
     slug: "chrysanthemum",
@@ -115,6 +139,12 @@ export const PIECES: Piece[] = [
         alt: "The Chrysanthemum scarf worn draped over the head, framing the dog's face",
       },
     ],
+    provenance: {
+      silkGrade: "Four-Ply Thai",
+      techniques: ["The Hand-Rolled Hem", "First-Light Dye"],
+      episodeNumber: 7,
+      handHours: 6,
+    },
   },
   {
     slug: "orchid",
@@ -134,6 +164,12 @@ export const PIECES: Piece[] = [
         alt: "The Orchid silk scarf worn over the head like a headscarf",
       },
     ],
+    provenance: {
+      silkGrade: "Four-Ply Thai",
+      techniques: ["First-Light Dye", "The Hand-Rolled Hem"],
+      episodeNumber: 9,
+      handHours: 7,
+    },
   },
   {
     // A real product in its own right, not only the packaging. It was
@@ -152,6 +188,11 @@ export const PIECES: Piece[] = [
         alt: "The Heritage Hemp Pochette in natural hand-loomed hemp, with a silk scarf folded inside",
       },
     ],
+    provenance: {
+      silkGrade: "Hand-loomed hemp",
+      techniques: ["Reverse Planning"],
+      handHours: 2,
+    },
   },
 ];
 

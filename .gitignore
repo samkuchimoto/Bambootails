@@ -41,3 +41,17 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# Raw drops: generated stills, video renders and reference art land here or
+# in the repo root while work is in progress. They are source material, not
+# site assets — anything the site actually serves goes through
+# scripts/compress-images.js into public/ with a deliberate name.
+#
+# Committing 2MB studio PNGs and 9MB MP4s would bloat the repo permanently,
+# and an untracked pile in the root is exactly what a careless `git add -A`
+# sweeps into a commit.
+/assets-inbox/
+/*.mp4
+/*.mov
+/ChatGPT Image*.png
+/A_*.mp4

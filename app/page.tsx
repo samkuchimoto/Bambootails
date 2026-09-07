@@ -30,7 +30,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-black/10" />
           <div className="absolute inset-x-0 bottom-0 p-6 sm:p-10 lg:p-16">
             <div className="mx-auto max-w-6xl">
-              <p className="label text-white/70">Bangkok · Paris · Tokyo · Milan · New York</p>
+              <p className="label text-white/70">Chiang Mai · Paris · Tokyo · Milan · New York</p>
               <h1 className="display mt-4 max-w-4xl text-4xl text-white sm:text-6xl lg:text-8xl">
                 Two dogs. One dream.
                 <br />A fashion house.

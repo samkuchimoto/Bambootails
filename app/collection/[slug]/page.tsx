@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PIECES, isBuyable, TIER_LABEL } from "@/lib/catalog";
+import { EPISODES } from "@/lib/universe";
 import { BRAND } from "@/config/brand";
 import { NewsletterForm } from "@/components/NewsletterForm";
 
@@ -33,6 +34,11 @@ export default async function PiecePage({ params }: { params: Promise<{ slug: st
   const { slug } = await params;
   const piece = PIECES.find((p) => p.slug === slug);
   if (!piece) notFound();
+
+  // The episode this piece is worn in, if any. Story to object in one
+  // hop: someone who arrived from a video can find the scarf, and
+  // someone who arrived from the shop can find where it came from.
+  const episode = EPISODES.find((e) => e.number === piece.provenance?.episodeNumber);
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-12 sm:py-16">
@@ -86,6 +92,42 @@ export default async function PiecePage({ params }: { params: Promise<{ slug: st
               </div>
             ))}
           </dl>
+
+          {/* Provenance. At this price the question is never whether it
+              is beautiful, it is what makes it worth that. The honest
+              answer is a bill of materials in hours and mastery rather
+              than an argument about value, and it is the same document
+              as the fiction: every technique named here is one the crew
+              earn on screen, from a named master, in a named city. */}
+          {piece.provenance && (
+            <div className="mt-10 border border-[var(--rule)] p-6">
+              <p className="label text-[var(--accent)]">Provenance</p>
+              <dl className="mt-5 space-y-4 text-sm">
+                <div>
+                  <dt className="label text-[var(--muted)]">Silk</dt>
+                  <dd className="mt-1">{piece.provenance.silkGrade}</dd>
+                </div>
+                <div>
+                  <dt className="label text-[var(--muted)]">Techniques</dt>
+                  <dd className="mt-1">{piece.provenance.techniques.join(" · ")}</dd>
+                </div>
+                <div>
+                  <dt className="label text-[var(--muted)]">Hand work</dt>
+                  <dd className="mt-1">
+                    {piece.provenance.handHours} hours, by one pair of hands
+                  </dd>
+                </div>
+              </dl>
+              {episode && (
+                <Link
+                  href="/series"
+                  className="label mt-6 inline-block border-b border-[var(--foreground)] pb-0.5 transition-opacity hover:opacity-60"
+                >
+                  Worn in Ep. {String(episode.number).padStart(2, "0")} — {episode.title}
+                </Link>
+              )}
+            </div>
+          )}
 
           {/* Order is a route, not a modal — it survives a refresh, can
               be linked to from an episode, and leaves the product page
