@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BRAND } from "@/config/brand";
 import { PIECES, CONCEPTS, COMING_SOON, PRICE_TIERS } from "@/lib/catalog";
-import { MASCOTS, EPISODES, EPISODE_STATUS_LABEL, mascotBySlug } from "@/lib/universe";
+import { CORE_CAST, WIDER_PACK, EPISODES, EPISODE_STATUS_LABEL, mascotBySlug } from "@/lib/universe";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { ConceptVote } from "@/components/ConceptVote";
 
@@ -78,7 +78,7 @@ export default function Home() {
           </div>
 
           <div className="mt-12 grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
-            {MASCOTS.map((mascot) => (
+            {CORE_CAST.map((mascot) => (
               <Link key={mascot.slug} href={`/mascots#${mascot.slug}`} className="group block">
                 <div className="relative aspect-square w-full overflow-hidden rounded-full bg-white/5">
                   <Image
@@ -94,6 +94,33 @@ export default function Home() {
                 <p className="mt-2 text-xs leading-relaxed text-white/60">{mascot.role}</p>
               </Link>
             ))}
+          </div>
+
+          {/* The wider pack, smaller. Showing the whole world exists
+              without competing with the five who carry the story — a
+              cast of fourteen at equal weight is a crowd, not a crew. */}
+          <div className="mt-16 border-t border-white/10 pt-10">
+            <p className="label text-white/40">And the pack — Kyoto, Seoul, Bangkok, Paris, Milan</p>
+            <div className="mt-6 flex flex-wrap gap-x-6 gap-y-8">
+              {WIDER_PACK.map((mascot) => (
+                <Link
+                  key={mascot.slug}
+                  href={`/mascots#${mascot.slug}`}
+                  className="group w-16 text-center sm:w-20"
+                >
+                  <div className="relative aspect-square w-full overflow-hidden rounded-full bg-white/5">
+                    <Image
+                      src={mascot.portrait}
+                      alt={`${mascot.name}, a ${mascot.breed} from ${mascot.city}`}
+                      fill
+                      sizes="80px"
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  </div>
+                  <p className="display mt-2 text-base">{mascot.name}</p>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
