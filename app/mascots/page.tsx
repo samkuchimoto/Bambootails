@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { CORE_CAST, WIDER_PACK, episodesFor } from "@/lib/universe";
+import { CORE_CAST, MASCOT_LINE, WIDER_PACK, episodesFor } from "@/lib/universe";
 
 export const metadata: Metadata = {
   title: "The House",
-  description: "Fourteen dogs, eight cities, one fashion house.",
+  description:
+    "Fourteen dogs, eight cities, one fashion house — and thirteen mascots in felt.",
 };
 
 export default function Mascots() {
@@ -139,6 +140,48 @@ export default function Mascots() {
               </article>
             ))}
           </div>
+        </section>
+
+        {/* The mascot line. Deliberately a different visual register
+            from everything above it: photoreal dogs in real silk carry
+            the house, needle-felt characters carry the pocket. Showing
+            them on the same page with the border stated out loud is what
+            keeps the collectible from reading as a cheap version of the
+            scarf — they are not the same object at two prices. */}
+        <section className="mt-28 border-t-2 border-[var(--foreground)] pt-10">
+          <p className="label text-[var(--accent)]">The mascot line</p>
+          <h2 className="display mt-3 text-3xl sm:text-5xl">Thirteen, in felt</h2>
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
+            The other half of the house. A scarf is a considered purchase; a mascot fits in a
+            pocket, on a bag, on a desk. Each one carries a single idea, which is also what makes
+            them easy to tell a very short story about.
+          </p>
+
+          <ul className="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
+            {MASCOT_LINE.map((toy) => (
+              <li key={toy.slug}>
+                <div className="relative aspect-square w-full bg-[#f4f1ec]">
+                  <Image
+                    src={toy.image}
+                    alt={`${toy.name}, the ${toy.species} mascot`}
+                    fill
+                    sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 22vw"
+                    className="object-contain p-3"
+                  />
+                </div>
+                <h3 className="display mt-3 text-xl">{toy.name}</h3>
+                <p className="label mt-1 text-[var(--muted)]">
+                  {toy.species} · {toy.carries}
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">{toy.line}</p>
+              </li>
+            ))}
+          </ul>
+
+          <p className="mt-10 max-w-xl text-xs leading-relaxed text-[var(--muted)]">
+            Not yet made — the characters are finished, the line is not. What happens next depends
+            on how many people ask for them.
+          </p>
         </section>
 
         <div className="mt-24 border-t border-[var(--rule)] pt-10">

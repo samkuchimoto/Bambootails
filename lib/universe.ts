@@ -639,3 +639,140 @@ export function episodesFor(slug: string): Episode[] {
 
 export const CORE_CAST = MASCOTS.filter((m) => m.tier === "core");
 export const WIDER_PACK = MASCOTS.filter((m) => m.tier === "pack");
+
+// ---------------------------------------------------------------------
+// The Mascot Line.
+//
+// The second register, and the commercial half of the "manga x Hermes"
+// question. A luxury house cannot discount its way to reach, and a
+// EUR 249 scarf will never be an impulse buy — but a needle-felt
+// character at EUR 15-35 puts the house in a pocket, on a bag, on a
+// desk, and in a TikTok, and every one of those is a person who now
+// knows the name before they ever see the silk.
+//
+// This is the Chiikawa / Pop Mart model rather than a discount tier:
+// the collectible is not a cheaper version of the scarf, it is a
+// different object entirely, and the two never compete. Keeping them in
+// separate registers — photoreal in silk, needle-felt in vinyl — is what
+// stops the cheap thing from cheapening the expensive one.
+//
+// Each carries exactly one theme, because the themes are what the
+// short-form videos are actually about, and a character who stands for
+// one thing is a character who can carry a 20-second story alone.
+// ---------------------------------------------------------------------
+
+export type MascotToy = {
+  slug: string;
+  name: string;
+  species: string;
+  carries: Theme;
+  line: string;
+  image: string;
+};
+
+export const MASCOT_LINE: MascotToy[] = [
+  {
+    slug: "hikari",
+    name: "Hikari",
+    species: "Rabbit",
+    carries: "Positive thinking",
+    line: "Arrives first, leaves last, and has never once been talked out of a good mood.",
+    image: "/mascots/chibi/hikari.png",
+  },
+  {
+    slug: "kuma",
+    name: "Kuma",
+    species: "Bear",
+    carries: "Friendship",
+    line: "Turns up with the heart. That is the entire job and he is extremely good at it.",
+    image: "/mascots/chibi/kuma.png",
+  },
+  {
+    slug: "kai",
+    name: "Kai",
+    species: "Tortoise",
+    carries: "Never give up",
+    line: "Slowest in the house. Has been to more cities than anyone else in it.",
+    image: "/mascots/chibi/kai.png",
+  },
+  {
+    slug: "yuki",
+    name: "Yuki",
+    species: "Penguin",
+    carries: "Courage",
+    line: "Small, round, and always the first one out onto the ice.",
+    image: "/mascots/chibi/yuki.png",
+  },
+  {
+    slug: "pika",
+    name: "Pika",
+    species: "Chick",
+    carries: "Never give up",
+    line: "Three cities in forty hours. Has never lost a package, only explained some of them.",
+    image: "/mascots/chibi/pika.png",
+  },
+  {
+    slug: "miko",
+    name: "Miko",
+    species: "Shiba Inu",
+    carries: "Craft",
+    line: "Will cut your best work in half to show you what the edge should look like.",
+    image: "/mascots/chibi/miko.png",
+  },
+  {
+    slug: "bao",
+    name: "Bao",
+    species: "Bichon",
+    carries: "Craft",
+    line: "Paints every print by hand first. The silk only ever gets the second draft.",
+    image: "/mascots/chibi/bao.png",
+  },
+  {
+    slug: "chika",
+    name: "Chika",
+    species: "Fox",
+    carries: "Honesty",
+    line: "Has read the contract. All of it. Including the part everyone skipped.",
+    image: "/mascots/chibi/chika.png",
+  },
+  {
+    slug: "ren",
+    name: "Ren",
+    species: "Panda",
+    carries: "Honesty",
+    line: "Reads the accounts in sunglasses so nobody can tell which line he stopped at.",
+    image: "/mascots/chibi/ren.png",
+  },
+  {
+    slug: "sora",
+    name: "Sora",
+    species: "Scottish Fold",
+    carries: "Craft",
+    line: "Holds the room steady. Holds the coffee steadier.",
+    image: "/mascots/chibi/sora.png",
+  },
+  {
+    slug: "coco",
+    name: "Coco",
+    species: "Poodle",
+    carries: "Craft",
+    line: "Recognises a weave from across a room, and will tell you the decade.",
+    image: "/mascots/chibi/coco.png",
+  },
+  {
+    slug: "tails",
+    name: "Tails",
+    species: "Shiba Inu",
+    carries: "Family",
+    line: "Carries the square everywhere he goes and has never once put it down.",
+    image: "/mascots/chibi/tails.png",
+  },
+  {
+    slug: "mochi",
+    name: "Mochi",
+    species: "Mochi",
+    carries: "Family",
+    line: "Does nothing, is essential, and everybody checks on him before they leave.",
+    image: "/mascots/chibi/mochi.png",
+  },
+];
