@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { SAGAS, THREADS, EPISODE_STATUS_LABEL, mascotBySlug } from "@/lib/universe";
+import { OPPOSITION } from "@/lib/world";
 import { PIECES } from "@/lib/catalog";
 import { NewsletterForm } from "@/components/NewsletterForm";
 
@@ -54,6 +55,40 @@ export default function Series() {
               </li>
             ))}
           </ul>
+        </section>
+
+        {/* The opposition. A house that is merely good at something has
+            a story that ends the moment it gets good; a house defending
+            something that is being destroyed does not. Both forces get
+            their real argument rather than a strawman — The Volume is
+            right about the two metres, and that is exactly the point. */}
+        <section className="mt-20">
+          <p className="label text-[var(--accent)]">What they are up against</p>
+          <h2 className="display mt-3 text-3xl sm:text-4xl">The opposition</h2>
+          <div className="mt-8 grid gap-10 sm:grid-cols-2">
+            {OPPOSITION.map((force) => (
+              <article key={force.slug} className="border-t border-[var(--rule)] pt-5">
+                <h3 className="display text-2xl">{force.name}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">
+                  &ldquo;{force.doctrine}&rdquo;
+                </p>
+                <dl className="mt-5 space-y-3 text-sm leading-relaxed">
+                  <div>
+                    <dt className="label text-[var(--muted)]">Method</dt>
+                    <dd className="mt-1 text-[var(--muted)]">{force.method}</dd>
+                  </div>
+                  <div>
+                    <dt className="label text-[var(--muted)]">Why they are winning</dt>
+                    <dd className="mt-1 text-[var(--muted)]">{force.advantage}</dd>
+                  </div>
+                  <div>
+                    <dt className="label text-[var(--accent)]">The house&apos;s answer</dt>
+                    <dd className="mt-1">{force.counter}</dd>
+                  </div>
+                </dl>
+              </article>
+            ))}
+          </div>
         </section>
 
         {/* Sagas. */}
