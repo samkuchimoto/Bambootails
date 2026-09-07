@@ -378,7 +378,7 @@ export const SAGAS: Saga[] = [
       },
       {
         number: 2,
-        title: "The Rooftop in the Monsoon",
+        title: "The Rooftop Covenant",
         city: "Chiang Mai",
         logline:
           "Soaked through on a tin roof with no silk, no money and no buyer, Bamboo says the sentence out loud: we are a fashion house.",
@@ -434,7 +434,7 @@ export const SAGAS: Saga[] = [
       },
       {
         number: 5,
-        title: "Ninety Seconds",
+        title: "Ninety Seconds of Contempt",
         city: "Paris",
         logline:
           "Maison Verreaux gives them four minutes and uses ninety seconds of it to call their inheritance a cleaning cloth.",
@@ -506,7 +506,7 @@ export const SAGAS: Saga[] = [
       },
       {
         number: 9,
-        title: "The Hour Colour Tells the Truth",
+        title: "The Hour of Living Pigment",
         city: "Kyoto",
         logline:
           "The crew want to dye at dawn. Hana makes them wait, and the light arrives exactly when she said.",
@@ -531,7 +531,7 @@ export const SAGAS: Saga[] = [
     episodes: [
       {
         number: 10,
-        title: "The Inquest",
+        title: "The Inquest of Via Montenapoleone",
         city: "Milan",
         logline:
           "Luna takes eleven minutes to dismantle the collection and is right about every minute of it.",
@@ -571,7 +571,7 @@ export const SAGAS: Saga[] = [
     episodes: [
       {
         number: 12,
-        title: "The Freight Ramp",
+        title: "The Underground Network",
         city: "New York",
         logline:
           "The elevator is out, so Nori takes a department-store buyer down a wet freight ramp into a basement.",

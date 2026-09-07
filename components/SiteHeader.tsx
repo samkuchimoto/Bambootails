@@ -15,6 +15,7 @@ const LINKS = [
   { href: "/atelier", label: "Atelier" },
   { href: "/mascots", label: "The House" },
   { href: "/series", label: "The Series" },
+  { href: "/production", label: "How It's Made" },
 ];
 
 export function SiteHeader() {

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { CORE_CAST, MASCOT_LINE, WIDER_PACK, episodesFor } from "@/lib/universe";
+import { SILK_ROAD } from "@/lib/production";
 import { ConceptVote } from "@/components/ConceptVote";
 
 export const metadata: Metadata = {
@@ -32,7 +33,31 @@ export default function Mascots() {
 
       <div className="mx-auto max-w-6xl px-6 py-16 sm:py-24">
         {/* The five who carry the story, at full weight. */}
-        <p className="label text-[var(--muted)]">The crew</p>
+        {/* The Silk Road, stated before the cast rather than after it.
+            The objection to a Chiang Mai house with a Tokyo hemmer and a
+            Milan critic is not that the names are diverse — it is that
+            nothing explains them, and unexplained diversity reads as
+            arbitrary. Naming the route first turns a cast into a
+            diaspora, and it happens to be how silk actually moved. */}
+        <section className="border-b border-[var(--rule)] pb-16">
+          <p className="label text-[var(--accent)]">Why these names</p>
+          <h2 className="display mt-3 max-w-2xl text-3xl sm:text-5xl">
+            A house assembled along a trade route
+          </h2>
+          <p className="mt-5 max-w-2xl leading-relaxed text-[var(--muted)]">{SILK_ROAD.principle}</p>
+
+          <ol className="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+            {SILK_ROAD.strands.map((strand) => (
+              <li key={strand.name} className="border-t border-[var(--rule)] pt-5">
+                <h3 className="display text-xl">{strand.name}</h3>
+                <p className="label mt-1 text-[var(--muted)]">{strand.region}</p>
+                <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">{strand.claim}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <p className="label mt-16 text-[var(--muted)]">The crew</p>
         <div className="mt-10 space-y-24">
           {CORE_CAST.map((mascot, index) => {
             const appearances = episodesFor(mascot.slug);
