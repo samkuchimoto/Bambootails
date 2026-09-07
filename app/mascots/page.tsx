@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { CORE_CAST, MASCOT_LINE, WIDER_PACK, episodesFor } from "@/lib/universe";
+import { ConceptVote } from "@/components/ConceptVote";
 
 export const metadata: Metadata = {
   title: "The House",
@@ -174,13 +175,23 @@ export default function Mascots() {
                   {toy.species} · {toy.carries}
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">{toy.line}</p>
+
+                {/* A vote per character, not one for the line. Which
+                    mascot gets manufactured first is the single most
+                    expensive guess in the whole plan, and this is the
+                    cheapest way to stop guessing: the same endpoint the
+                    concepts already use, so the answer arrives as an
+                    email list sorted by demand. */}
+                <div className="mt-3">
+                  <ConceptVote slug={`mascot-${toy.slug}`} name={toy.name} />
+                </div>
               </li>
             ))}
           </ul>
 
           <p className="mt-10 max-w-xl text-xs leading-relaxed text-[var(--muted)]">
-            Not yet made — the characters are finished, the line is not. What happens next depends
-            on how many people ask for them.
+            Not yet made — the characters are finished, the line is not. Vote for the one you want
+            and we make that one first: fifty of it, and you hear before anyone else.
           </p>
         </section>
 
