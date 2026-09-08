@@ -38,7 +38,7 @@ export async function POST(request: Request) {
   try {
     const res = await fetch(webhook, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify({ email, source, submittedAt: new Date().toISOString() }),
     });
 
