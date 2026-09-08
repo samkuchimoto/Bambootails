@@ -6,7 +6,7 @@ import { EPISODES } from "@/lib/universe";
 export const metadata: Metadata = {
   title: "How It Is Made",
   description:
-    "The production rhythm behind the series, the toolchain that renders it, and the commercial architecture underneath a €249 scarf.",
+    "The production rhythm behind the series, the toolchain that renders it, and the commercial architecture underneath a $349 scarf.",
 };
 
 const STATUS_LABEL = {
@@ -18,15 +18,23 @@ const STATUS_LABEL = {
 export default function Production() {
   return (
     <div>
-      <section className="bg-[#16130f] text-[#faf8f5]">
-        <div className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
-          <p className="label text-white/40">The working method</p>
-          <h1 className="display mt-5 max-w-3xl text-5xl sm:text-7xl">
-            How it is
-            <br />
-            actually made.
+      <section className="field-indigo relative overflow-hidden border-b-2 border-[var(--foreground)]">
+        <div className="dots absolute inset-0 text-white" aria-hidden />
+        <div className="relative mx-auto max-w-6xl px-6 py-20 sm:py-28">
+          <p className="label text-[var(--gold)]">The working method</p>
+          <h1 className="relative mt-5 max-w-3xl">
+            <span aria-hidden className="pop absolute left-[4px] top-[4px] block text-[2.8rem] leading-[0.85] text-[var(--gold)] sm:text-7xl">
+              How it is
+              <br />
+              actually made.
+            </span>
+            <span className="pop relative block text-[2.8rem] leading-[0.85] text-white sm:text-7xl">
+              How it is
+              <br />
+              actually made.
+            </span>
           </h1>
-          <p className="mt-7 max-w-xl leading-relaxed text-white/60">
+          <p className="mt-7 max-w-xl leading-relaxed text-white/85">
             A house this small survives on being legible. What follows is the rhythm every episode
             is cut to, the tools that render it, and the commercial structure underneath a single
             expensive scarf — published rather than implied.
@@ -39,8 +47,8 @@ export default function Production() {
             per beat, because a structure without consequences is a
             suggestion and gets abandoned by episode three. */}
         <section>
-          <p className="label text-[var(--accent)]">The cut</p>
-          <h2 className="display mt-3 text-3xl sm:text-5xl">Sixty seconds, four beats</h2>
+          <p className="label text-[var(--madder)]">The cut</p>
+          <h2 className="pop mt-3 text-3xl sm:text-5xl">Sixty seconds, four beats</h2>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
             Short-form gives you three seconds before someone decides. A beautiful slow open spends
             all three of them, which is why there is no logo, no fade and no establishing wide
@@ -60,7 +68,7 @@ export default function Production() {
                     {beat.brief}
                   </p>
                   <p className="mt-3 max-w-2xl border-l-2 border-[var(--accent)] pl-3 text-sm leading-relaxed">
-                    <span className="label text-[var(--accent)]">Fails when</span>
+                    <span className="label text-[var(--madder)]">Fails when</span>
                     <br />
                     {beat.failure}
                   </p>
@@ -75,8 +83,8 @@ export default function Production() {
             the stake is stated rather than dramatised, and it decides
             whether the other fifty-seven seconds are watched at all. */}
         <section className="mt-24 border-t-2 border-[var(--foreground)] pt-10">
-          <p className="label text-[var(--accent)]">Second zero</p>
-          <h2 className="display mt-3 text-3xl sm:text-5xl">Fourteen hooks</h2>
+          <p className="label text-[var(--madder)]">Second zero</p>
+          <h2 className="pop mt-3 text-3xl sm:text-5xl">Fourteen hooks</h2>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
             The on-screen line in the first three seconds. Every one of them states a cost, because
             a stake nobody can lose is not a hook.
@@ -113,8 +121,8 @@ export default function Production() {
             to achieve does not, so the metric column is the part worth
             keeping when the platform column is replaced. */}
         <section className="mt-24 border-t-2 border-[var(--foreground)] pt-10">
-          <p className="label text-[var(--accent)]">The render</p>
-          <h2 className="display mt-3 text-3xl sm:text-5xl">Five passes</h2>
+          <p className="label text-[var(--madder)]">The render</p>
+          <h2 className="pop mt-3 text-3xl sm:text-5xl">Five passes</h2>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
             The platform column is this month&apos;s answer. The bar column is the requirement, and
             it is the half that survives when the tools are replaced.
@@ -153,10 +161,10 @@ export default function Production() {
             the reason the scarf is a halo rather than a business, and
             saying so is what makes the rest of the plan legible. */}
         <section className="mt-24 border-t-2 border-[var(--foreground)] pt-10">
-          <p className="label text-[var(--accent)]">The architecture</p>
-          <h2 className="display mt-3 text-3xl sm:text-5xl">Four layers</h2>
+          <p className="label text-[var(--madder)]">The architecture</p>
+          <h2 className="pop mt-3 text-3xl sm:text-5xl">Four layers</h2>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[var(--muted)]">
-            A €249 scarf cannot carry paid acquisition at this margin, and was never meant to. It is
+            A $349 scarf cannot carry paid acquisition at this margin, and was never meant to. It is
             the proof the craft is real. What compounds is everything underneath it — and the layer
             with the highest margin is the cheapest object in the range.
           </p>

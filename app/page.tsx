@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { BRAND } from "@/config/brand";
-import { PIECES, CONCEPTS, isBuyable } from "@/lib/catalog";
+import { CURRENCY, PIECES, CONCEPTS, isBuyable } from "@/lib/catalog";
 import { EPISODES, EPISODE_STATUS_LABEL, FOUNDERS, GUILD, mascotBySlug } from "@/lib/universe";
 import { HookMarquee } from "@/components/HookMarquee";
-import { MascotField } from "@/components/MascotField";
+import { CastCharge } from "@/components/CastCharge";
 import { ConceptVote } from "@/components/ConceptVote";
 import { NewsletterForm } from "@/components/NewsletterForm";
 
@@ -35,63 +35,92 @@ export default function Home() {
           brand's actual thesis: manga and Hermes in one frame rather
           than in two separate sections.
           --------------------------------------------------------------- */}
-      <section className="field-madder relative overflow-hidden border-b-2 border-[var(--foreground)]">
+      <section className="field-madder relative min-h-[88vh] overflow-hidden border-b-2 border-[var(--foreground)]">
         <div className="dots absolute inset-0 text-white" aria-hidden />
-        <MascotField count={24} className="opacity-40" />
 
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-6 py-16 sm:py-24 lg:grid-cols-[1.15fr_1fr] lg:gap-14">
-          <div>
-            <p className="label text-white/70">
-              Chiang Mai · Bangkok · Paris · Tokyo · Kyoto · Milan · New York · Seoul
-            </p>
+        {/* The charge runs behind and beneath the type: the whole guild
+            leaping left to right on a rising diagonal, scaling up, the
+            leaders breaking the right edge. Speed lines converge on the
+            direction of travel. This is the composition every shonen key
+            visual uses to mean "forward", and it is the difference
+            between a cast standing still and a cast going somewhere. */}
+        <CastCharge />
 
-            <h1 className="pop-in mt-5 text-[2.6rem] leading-[0.9] text-white sm:text-6xl lg:text-7xl">
-              <span className="pop block">Fourteen outcasts.</span>
-              <span className="display mt-2 block font-light italic">One sacred weave.</span>
-              <span className="pop mt-2 block text-[var(--gold)]">A maison reborn.</span>
-            </h1>
+        <div className="relative mx-auto flex min-h-[88vh] max-w-6xl flex-col justify-center px-6 py-20">
+          <p className="label text-white/80">
+            Chiang Mai · Bangkok · Paris · Tokyo · Kyoto · Milan · New York · Seoul
+          </p>
 
-            <p className="mt-7 max-w-md leading-relaxed text-white/80">
-              Two dogs founded the house. The masters who joined it are a cat, a chick, a tortoise
-              and a panda — because when the factories forgot how to do this, the ones who
-              remembered were not who anybody expected.
-            </p>
+          {/* Set enormous and printed out of register — a gold plate
+              behind an ink plate. At this size the misregistration reads
+              as force rather than as a mistake. */}
+          <h1 className="pop-in relative mt-6 max-w-4xl">
+            <span
+              aria-hidden
+              className="pop absolute left-[5px] top-[5px] block text-[3.4rem] leading-[0.84] text-[var(--gold)] sm:text-8xl lg:text-[8.5rem]"
+            >
+              Leap
+              <br />
+              anyway.
+            </span>
+            <span className="pop relative block text-[3.4rem] leading-[0.84] text-white sm:text-8xl lg:text-[8.5rem]">
+              Leap
+              <br />
+              anyway.
+            </span>
+          </h1>
 
-            <div className="mt-9 flex flex-wrap gap-4">
-              <Link
-                href="/series"
-                className="keyline label bg-[var(--gold)] px-7 py-4 text-[var(--foreground)] transition-transform hover:-translate-y-0.5"
-              >
-                Explore Saga 01
-              </Link>
-              <Link
-                href="/collection"
-                className="keyline label bg-white px-7 py-4 text-[var(--foreground)] transition-transform hover:-translate-y-0.5"
-              >
-                Acquire the collection
-              </Link>
-            </div>
+          <p className="display mt-8 max-w-2xl text-2xl italic leading-tight text-white sm:text-4xl">
+            Fourteen outcasts. One sacred weave. A maison reborn.
+          </p>
+
+          <p className="mt-6 max-w-lg leading-relaxed text-white/85">
+            Two dogs founded the house. The masters who joined are a cat, a chick, a tortoise and a
+            panda — because when the factories forgot how to do this, the ones who remembered were
+            not who anybody expected.
+          </p>
+
+          <div className="mt-10 flex flex-wrap gap-4">
+            <Link
+              href="/series"
+              className="keyline label bg-[var(--gold)] px-8 py-4 text-[var(--foreground)] transition-transform hover:-translate-y-1"
+            >
+              Explore Saga 01
+            </Link>
+            <Link
+              href="/collection"
+              className="keyline label bg-white px-8 py-4 text-[var(--foreground)] transition-transform hover:-translate-y-1"
+            >
+              Acquire the collection
+            </Link>
           </div>
 
-          {/* The real photograph, keylined so it reads as a printed
-              object dropped onto the field rather than a background. */}
-          <div className="keyline relative aspect-[4/5] w-full overflow-hidden bg-black">
-            <Image
-              src={hero.images[0].src}
-              alt={hero.images[0].alt}
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 45vw"
-              className="object-cover"
-            />
-            <div className="absolute inset-x-0 bottom-0 bg-[var(--foreground)]/85 p-4">
-              <p className="label text-white/60">In the atelier</p>
-              <p className="display mt-1 text-xl text-white">
-                {hero.name} — €{isBuyable(hero) ? hero.priceEur : "—"}
+          {/* The product, small and pinned into the corner of the
+              explosion. The scarf does not need to shout here — the point
+              is that it exists inside this world, not that it competes
+              with it for attention. */}
+          <Link
+            href={`/collection/${hero.slug}`}
+            className="keyline keyline-lift mt-14 flex w-full max-w-sm items-center gap-4 bg-[var(--background)] p-3"
+          >
+            <div className="relative aspect-square w-20 shrink-0 overflow-hidden bg-black">
+              <Image
+                src={hero.images[0].src}
+                alt={hero.images[0].alt}
+                fill
+                priority
+                sizes="80px"
+                className="object-cover"
+              />
+            </div>
+            <div>
+              <p className="label text-[var(--madder)]">Batch 01 — 50 numbered cuts</p>
+              <p className="display mt-1 text-xl">
+                {hero.name} — {CURRENCY.symbol}
+                {isBuyable(hero) ? hero.price : "—"}
               </p>
-              <p className="label mt-1 text-[var(--gold)]">Batch 01 — 50 numbered cuts</p>
             </div>
-          </div>
+          </Link>
         </div>
       </section>
 
@@ -304,7 +333,7 @@ export default function Home() {
                   </div>
                   <h3 className="display mt-4 text-2xl">{piece.name}</h3>
                   {isBuyable(piece) && (
-                    <p className="pop mt-1 text-lg text-[var(--madder)]">€{piece.priceEur}</p>
+                    <p className="pop mt-1 text-lg text-[var(--madder)]">{CURRENCY.symbol}{piece.price}</p>
                   )}
                   {piece.provenance && (
                     <p className="label mt-2 text-[var(--muted)]">

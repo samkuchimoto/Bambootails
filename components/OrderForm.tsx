@@ -8,21 +8,22 @@
 import { useState, type FormEvent } from "react";
 import { BRAND } from "@/config/brand";
 import { MAX_QUANTITY } from "@/lib/commerce";
+import { CURRENCY } from "@/lib/catalog";
 
 type Status = "idle" | "sending" | "done" | "unconfigured" | "error";
 
 export function OrderForm({
   pieceSlug,
   pieceName,
-  priceEur,
+  price,
 }: {
   pieceSlug: string;
   pieceName: string;
-  priceEur: number;
+  price: number;
 }) {
   const [quantity, setQuantity] = useState(1);
   const [status, setStatus] = useState<Status>("idle");
-  const total = priceEur * quantity;
+  const total = price * quantity;
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -90,7 +91,7 @@ export function OrderForm({
             </button>
           </div>
         </div>
-        <p className="display text-3xl">€{total}</p>
+        <p className="display text-3xl">{CURRENCY.symbol}{total}</p>
       </div>
 
       <label className="block">
@@ -126,7 +127,7 @@ export function OrderForm({
         disabled={status === "sending"}
         className="label w-full bg-[var(--foreground)] px-8 py-4 text-[var(--background)] transition-opacity hover:opacity-85 disabled:opacity-40 sm:w-auto"
       >
-        {status === "sending" ? "Placing…" : `Place order — €${total}`}
+        {status === "sending" ? "Placing…" : `Place order — ${CURRENCY.symbol}${total}`}
       </button>
 
       <p className="text-xs leading-relaxed text-[var(--muted)]">

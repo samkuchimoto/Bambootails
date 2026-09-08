@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { PIECES, isBuyable, TIER_LABEL } from "@/lib/catalog";
+import { CURRENCY, PIECES, isBuyable, TIER_LABEL } from "@/lib/catalog";
 import { EPISODES } from "@/lib/universe";
 import { BRAND } from "@/config/brand";
 import { NewsletterForm } from "@/components/NewsletterForm";
@@ -74,7 +74,7 @@ export default async function PiecePage({ params }: { params: Promise<{ slug: st
           {piece.tier && <p className="label text-[var(--muted)]">{TIER_LABEL[piece.tier]}</p>}
           <h1 className="display mt-2 text-4xl sm:text-5xl">{piece.name}</h1>
           {isBuyable(piece) && (
-            <p className="mt-3 text-lg text-[var(--muted)]">€{piece.priceEur}</p>
+            <p className="mt-3 text-lg text-[var(--muted)]">{CURRENCY.symbol}{piece.price}</p>
           )}
           <p className="mt-6 max-w-md leading-relaxed text-[var(--muted)]">{piece.description}</p>
 
@@ -100,8 +100,8 @@ export default async function PiecePage({ params }: { params: Promise<{ slug: st
               as the fiction: every technique named here is one the crew
               earn on screen, from a named master, in a named city. */}
           {piece.provenance && (
-            <div className="mt-10 border border-[var(--rule)] p-6">
-              <p className="label text-[var(--accent)]">Provenance</p>
+            <div className="keyline mt-10 bg-[var(--gold)] p-6">
+              <p className="label text-[var(--madder)]">Provenance</p>
               <dl className="mt-5 space-y-4 text-sm">
                 <div>
                   <dt className="label text-[var(--muted)]">Silk</dt>
@@ -135,9 +135,9 @@ export default async function PiecePage({ params }: { params: Promise<{ slug: st
           <div className="mt-8">
             <Link
               href={`/order/${piece.slug}`}
-              className="label inline-block bg-[var(--foreground)] px-8 py-4 text-[var(--background)] transition-opacity hover:opacity-85"
+              className="keyline label inline-block bg-[var(--madder)] px-8 py-4 text-white transition-transform hover:-translate-y-1"
             >
-              Order — €{piece.priceEur}
+              Order — {CURRENCY.symbol}{piece.price}
             </Link>
             <p className="mt-3 max-w-sm text-xs leading-relaxed text-[var(--muted)]">
               Made to order. We confirm the fit by email before anything is charged.

@@ -129,7 +129,7 @@ export const TOOLCHAIN: ToolPhase[] = [
 // ---------------------------------------------------------------------
 // The commercial pyramid.
 //
-// The point the report makes best: a €249 scarf cannot carry customer
+// The point the report makes best: a $349 scarf cannot carry customer
 // acquisition on paid channels at 65-78% margin, and it was never
 // supposed to. It is the halo. Everything underneath it is what actually
 // compounds — and the layer with the highest margin is the cheapest
@@ -152,7 +152,7 @@ export const PYRAMID: PyramidLayer[] = [
     layer: "Haute couture crown",
     asset: "Hand-rolled Thai Mudmee silk scarves",
     audience: "Collectors, high-net-worth pet owners",
-    price: "€249",
+    price: "$349",
     margin: "65–75%",
     purpose:
       "Establishes that the craft is real. Everything below it borrows credibility from this and gives back reach.",
@@ -162,7 +162,7 @@ export const PYRAMID: PyramidLayer[] = [
     layer: "Diffusion lifestyle",
     asset: "Canvas leads, matching human twillies",
     audience: "Design buyers who are not yet collectors",
-    price: "€45–95",
+    price: "$59–99",
     margin: "78–84%",
     purpose:
       "Cash-flow stabiliser, and the bridge between what the dog wears and what the owner wears.",
@@ -172,7 +172,7 @@ export const PYRAMID: PyramidLayer[] = [
     layer: "Mascot collectibles",
     asset: "Blind-box vinyl, plush charms, stickers",
     audience: "Global Gen Z, anime and design-toy fandoms",
-    price: "€15–35",
+    price: "$19–39",
     margin: "82–88%",
     purpose:
       "The reach engine. Highest margin in the range, lowest price in the range, and the only tier that travels by itself.",

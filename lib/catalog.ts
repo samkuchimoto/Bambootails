@@ -28,14 +28,14 @@ export type Piece = {
   /** Which rung of the ladder. Only meaningful alongside a price. */
   tier?: PriceTier;
   /** Only ever set for "atelier". Enforced by the type guard below. */
-  priceEur?: number;
+  price?: number;
   images: { src: string; alt: string }[];
   /**
    * What made it, and who. This is the piece that turns a scarf into an
    * artifact: a buyer can read which silk, which techniques, and which
    * chapter of the story it belongs to.
    *
-   * It is also the honest answer to "why €249" — not an argument about
+   * It is also the honest answer to "why $349" — not an argument about
    * value, but a bill of materials in hours and mastery. Every entry
    * here is a real constraint from lib/world.ts, so the lore and the
    * production reality are the same document.
@@ -53,39 +53,50 @@ export type Piece = {
 // The price ladder.
 //
 // Set deliberately high, because the opening price is the brand, not a
-// conversion knob. A house that launches at €249 can add a €149 entry
-// piece, a seasonal accessory or a promotion later and still read as
-// luxury. A house that launches at €49 cannot credibly become a €249
-// house afterwards — the first number is the one customers remember,
-// and every later increase looks like the same scarf costing more.
+// conversion knob. The asymmetry decides it: launching at $349 and
+// discovering $249 converts better is a cheap lesson, while launching at
+// $49 and discovering people would gladly have paid $349 is
+// unrecoverable margin on every unit already sold.
 //
-// The asymmetry is what decides it: launching at €249 and discovering
-// €199 converts better is a cheap lesson. Launching at €49 and
-// discovering people would gladly have paid €249 is unrecoverable
-// margin on every unit already sold.
+// But the crown is not the business, and pretending otherwise is the
+// mistake this ladder exists to prevent. At 65-75% margin the signature
+// scarf cannot carry paid acquisition — it earns the right to be
+// believed. The tiers that compound are underneath it: a $29 blind-box
+// figure runs 82-88% and travels on its own, and a $69 lead is what
+// turns one purchase into a habit. A house with only a crown is a
+// lookbook with a checkout.
 //
 // Tiers exist ahead of the products that will fill them, so adding a
 // limited or numbered edition later is a data change and not a pricing
 // argument had again from scratch.
+/** One place to change the currency, rather than a symbol typed into
+ *  fourteen components and missed in three of them. */
+export const CURRENCY = { symbol: "$", code: "USD" } as const;
+
 export const PRICE_TIERS = {
+  /** Blind-box vinyl, plush charms, stickers. Highest margin in the
+   *  range and the only tier that travels on its own. */
+  collectible: 29,
+  /** Leads and matching human twillies — the bridge between what the dog
+   *  wears and what the owner wears, and the cash-flow stabiliser. */
+  diffusion: 69,
   /** Small silk goods and the pochette. */
   accessory: 89,
-  /** A simpler cut, or a shorter run. Currently unused. */
-  premium: 149,
   /** The flagship: hand-rolled artisan silk. Where the house begins. */
-  signature: 249,
+  signature: 349,
   /** A print that will not be cut again. */
-  limited: 299,
+  limited: 429,
   /** Numbered, with the number on the label. */
-  collector: 399,
+  collector: 549,
 } as const;
 
 export type PriceTier = keyof typeof PRICE_TIERS;
 
 /** What each rung is called to a customer. */
 export const TIER_LABEL: Record<PriceTier, string> = {
+  collectible: "Collectible",
+  diffusion: "Diffusion",
   accessory: "Accessory",
-  premium: "Premium",
   signature: "Signature Artisan Silk",
   limited: "Limited Edition",
   collector: "Collector — numbered",
@@ -99,7 +110,7 @@ export const PIECES: Piece[] = [
       "Deep madder red, with gold palms opening across the silk. The first print BambooTails ever cut, and still the one people reach for.",
     availability: "atelier",
     tier: "signature",
-    priceEur: PRICE_TIERS.signature,
+    price: PRICE_TIERS.signature,
     images: [
       {
         src: "/images/scarf-hibiscus-hero.jpg",
@@ -124,7 +135,7 @@ export const PIECES: Piece[] = [
       "Amber, coral and old gold, layered into chrysanthemum heads. The warmest print in the atelier — it reads almost metallic in low light.",
     availability: "atelier",
     tier: "signature",
-    priceEur: PRICE_TIERS.signature,
+    price: PRICE_TIERS.signature,
     images: [
       {
         src: "/images/scarf-chrysanthemum-01.jpg",
@@ -153,7 +164,7 @@ export const PIECES: Piece[] = [
       "Pale green and cream, drawn from pressed spring flowers. The quietest of the three, and the one that suits a pale coat best.",
     availability: "atelier",
     tier: "signature",
-    priceEur: PRICE_TIERS.signature,
+    price: PRICE_TIERS.signature,
     images: [
       {
         src: "/images/scarf-meadow-01.jpg",
@@ -181,7 +192,7 @@ export const PIECES: Piece[] = [
       "Hand-loomed hemp, cut and sewn to hold one scarf. Every order ships in one; this is a spare, for the second scarf or the drawer.",
     availability: "atelier",
     tier: "accessory",
-    priceEur: PRICE_TIERS.accessory,
+    price: PRICE_TIERS.accessory,
     images: [
       {
         src: "/images/product-packaging.jpg",
@@ -237,8 +248,8 @@ export const CONCEPTS: Piece[] = [
 ];
 
 /** Only atelier pieces may be bought. Used everywhere a price renders. */
-export function isBuyable(piece: Piece): piece is Piece & { priceEur: number } {
-  return piece.availability === "atelier" && typeof piece.priceEur === "number";
+export function isBuyable(piece: Piece): piece is Piece & { price: number } {
+  return piece.availability === "atelier" && typeof piece.price === "number";
 }
 
 export function findPiece(slug: string): Piece | undefined {

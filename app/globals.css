@@ -249,6 +249,67 @@ body {
   opacity: 0.12;
 }
 
+/* ---------------------------------------------------------------------
+   Speed lines (shuusen). The device I skipped, and the one that actually
+   makes a manga panel read as motion rather than as an illustration of
+   motion. A conic gradient of alternating wedges from a single vanishing
+   point does it in one declaration: everything in the frame appears to
+   be rushing outward from, or charging toward, that point.
+
+   Two variants, because they say different things. Radial = impact,
+   arrival, the moment something lands. Directional = the charge itself,
+   bodies moving left to right across the frame.
+   --------------------------------------------------------------------- */
+.speedlines {
+  background-image: repeating-conic-gradient(
+    from 0deg at var(--burst-x, 50%) var(--burst-y, 50%),
+    currentColor 0deg 1.1deg,
+    transparent 1.1deg 4deg
+  );
+  /* Fade the centre so the focal subject is not shredded by the lines —
+     without this the device reads as noise instead of force. */
+  mask-image: radial-gradient(
+    circle at var(--burst-x, 50%) var(--burst-y, 50%),
+    transparent 12%,
+    #000 55%
+  );
+  opacity: 0.22;
+}
+
+.speedlines-h {
+  background-image: repeating-linear-gradient(
+    90deg,
+    currentColor 0 2px,
+    transparent 2px 9px
+  );
+  mask-image: linear-gradient(90deg, #000, transparent 62%);
+  opacity: 0.2;
+}
+
+/* The charge. A row of characters leaping left-to-right, each one
+   larger and higher than the last, so the eye is pulled across the
+   frame and off the right edge — the composition every shonen key
+   visual uses to say "forward". Scale and lift come from the index. */
+.charge-item {
+  animation: charge-leap var(--charge-duration, 2.8s) ease-in-out infinite;
+  animation-delay: var(--charge-delay, 0s);
+}
+@keyframes charge-leap {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--charge-tilt, -6deg));
+  }
+  50% {
+    transform: translateY(-18px) rotate(calc(var(--charge-tilt, -6deg) + 4deg));
+  }
+}
+
+/* Hard drop shadow for cut-out characters sitting on a colour field.
+   Offset and unblurred, so they read as stickers laid on the page. */
+.cutout {
+  filter: drop-shadow(4px 5px 0 rgba(20, 17, 13, 0.55));
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

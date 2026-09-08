@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { PIECES, isBuyable } from "@/lib/catalog";
+import { CURRENCY, PIECES, isBuyable } from "@/lib/catalog";
 import { OrderForm } from "@/components/OrderForm";
 
 // Only buyable pieces get an order page. A concept or a coming-soon
@@ -52,7 +52,7 @@ export default async function OrderPage({ params }: { params: Promise<{ slug: st
             />
           </div>
           <h1 className="display mt-6 text-3xl">{piece.name}</h1>
-          <p className="mt-1 text-sm text-[var(--muted)]">€{piece.priceEur} each</p>
+          <p className="mt-1 text-sm text-[var(--muted)]">{CURRENCY.symbol}{piece.price} each</p>
           <p className="mt-4 max-w-md text-sm leading-relaxed text-[var(--muted)]">
             {piece.description}
           </p>
@@ -68,7 +68,7 @@ export default async function OrderPage({ params }: { params: Promise<{ slug: st
             <OrderForm
               pieceSlug={piece.slug}
               pieceName={piece.name}
-              priceEur={piece.priceEur}
+              price={piece.price}
             />
           </div>
         </div>
