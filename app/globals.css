@@ -1,16 +1,54 @@
 @import "tailwindcss";
 
-/* BambooTails palette.
-   Warm off-white paper and near-black ink, so the silk — madder red,
-   amber, pale green — is the only real colour on the page. A luxury
-   house earns its look by withholding colour everywhere the product
-   isn't. */
+/* BambooTails — Superflat.
+   ---------------------------------------------------------------------
+   The previous system withheld colour on purpose: warm paper, near-black
+   ink, and the silk as the only saturated thing on the page. That is the
+   correct instinct for a pure luxury house, and it is the wrong one here.
+
+   A house whose reach engine is a EUR 20 vinyl figure cannot whisper. The
+   model is Murakami rather than Hermes-alone — and Superflat is not the
+   opposite of luxury, it IS the resolution of it: he took otaku kawaii,
+   flattened it, repeated it four hundred times, and put it inside Louis
+   Vuitton. That is exactly the manga-times-Hermes problem this brand has
+   been circling, already solved by someone else, commercially, at scale.
+
+   Superflat's actual mechanics, which this file implements:
+     1. FLAT COLOUR, many at once — no gradients pretending to be depth.
+     2. A HARD KEYLINE around everything, so shapes read as graphic
+        objects rather than photographs.
+     3. INFINITE REPETITION — the flowers work because there are hundreds.
+        Thirteen chibi characters tiled across a field are our flowers.
+     4. A FACE ON EVERYTHING, and the face is smiling.
+     5. MOTION. Grok was right that the dynamism was entirely in prose.
+
+   What does NOT change: the product photography stays quiet and real.
+   The collision of a loud graphic field against a still photograph of an
+   actual dog in actual silk is the whole point — high and low in one
+   frame is Superflat, not an inconsistency.
+   --------------------------------------------------------------------- */
+
 :root {
-  --background: #faf8f5;
-  --foreground: #16130f;
+  /* Ground and ink. Cream stays, because long body copy on saturated
+     colour is unreadable and self-indulgent. */
+  --background: #fdfbf6;
+  --foreground: #14110d;
   --muted: #6f675d;
-  --rule: #e2dcd2;
-  --accent: #7c2d1a; /* madder, drawn from the Golden Palms print */
+  --rule: #14110d; /* the keyline is ink, not grey — Superflat has no soft edges */
+  --hairline: #e2dcd2; /* the old rule colour, kept for quiet dividers */
+
+  /* The pop palette, drawn from the house's own prints rather than from
+     Murakami's. Every one of these already exists on a BambooTails
+     scarf, which is what stops this reading as pastiche. */
+  --madder: #c1272d; /* Golden Palms ground */
+  --gold: #e8a33d; /* Golden Palms palms */
+  --amber: #e8930c; /* Chrysanthemum */
+  --coral: #e4572e; /* Chrysanthemum */
+  --orchid: #8fae7c; /* Orchid */
+  --indigo: #2e4a7d; /* Kyoto first-light dye */
+  --blossom: #e8547c; /* the collectible register — the one colour not yet on silk */
+
+  --accent: var(--madder);
 }
 
 @theme inline {
@@ -18,7 +56,15 @@
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-rule: var(--rule);
+  --color-hairline: var(--hairline);
   --color-accent: var(--accent);
+  --color-madder: var(--madder);
+  --color-gold: var(--gold);
+  --color-amber: var(--amber);
+  --color-coral: var(--coral);
+  --color-orchid: var(--orchid);
+  --color-indigo: var(--indigo);
+  --color-blossom: var(--blossom);
   --font-display: var(--font-display);
   --font-sans: var(--font-body);
 }
@@ -35,12 +81,24 @@ body {
 
 /* Display type: the house voice. Tight tracking and low leading because
    these are set large — at 48px+ the default line-height reads loose
-   and unconfident. */
+   and unconfident. The serif stays: it is the Hermes half of the
+   collision, and removing it would leave only the manga half. */
 .display {
   font-family: var(--font-display), ui-serif, Georgia, serif;
   font-weight: 300;
   letter-spacing: -0.02em;
   line-height: 1.05;
+}
+
+/* The graphic voice. Where .display is the couture label, .pop is the
+   toy box — heavy, tight, shouted. Used only where something is meant
+   to be loud, never for reading. */
+.pop {
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  text-transform: uppercase;
 }
 
 /* Small-caps marker for sections and availability. The wide tracking is
@@ -52,11 +110,154 @@ body {
   font-weight: 500;
 }
 
+/* ---------------------------------------------------------------------
+   The keyline. Superflat's signature is not the colour, it is the hard
+   black outline that turns a rendered object into a printed one. A 2px
+   ink border plus a hard offset shadow — no blur, because blur is depth
+   and depth is exactly what "flat" refuses — reads as sticker, vinyl,
+   print.
+   --------------------------------------------------------------------- */
+.keyline {
+  border: 2px solid var(--foreground);
+  box-shadow: 5px 5px 0 var(--foreground);
+}
+
+.keyline-sm {
+  border: 2px solid var(--foreground);
+  box-shadow: 3px 3px 0 var(--foreground);
+}
+
+/* Lift on hover — the sticker being peeled. Cheap, and it makes a grid
+   of thirteen characters feel like objects you could pick up. */
+.keyline-lift {
+  transition:
+    transform 0.18s cubic-bezier(0.2, 0.9, 0.3, 1.4),
+    box-shadow 0.18s ease;
+}
+.keyline-lift:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 8px 8px 0 var(--foreground);
+}
+
+/* ---------------------------------------------------------------------
+   Motion. The most-repeated criticism was that the site is static — "a
+   table of contents for something dynamic". These are the primitives
+   that fix it: all CSS, no library, all disabled under
+   prefers-reduced-motion at the bottom of this file.
+   --------------------------------------------------------------------- */
+
+/* Infinite horizontal scroll. The track holds its content twice and
+   moves exactly -50%, so the seam is invisible and the loop never
+   visibly resets. */
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll var(--marquee-duration, 40s) linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Gentle bob. Applied to characters in a field so the whole thing
+   breathes. Staggered via --float-delay so no two move together —
+   synchronised bobbing reads as a screensaver. */
+.float {
+  animation: float-bob var(--float-duration, 4s) ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+}
+@keyframes float-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--float-tilt, 0deg));
+  }
+  50% {
+    transform: translateY(-8px) rotate(calc(var(--float-tilt, 0deg) * -1));
+  }
+}
+
+/* Slow rotation, for a radial motif behind a hero. */
+.spin-slow {
+  animation: spin-slow 40s linear infinite;
+}
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Entrance. Overshoots slightly then settles — the toy-unboxing pop
+   rather than a corporate fade-up. */
+.pop-in {
+  animation: pop-in 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.4) both;
+  animation-delay: var(--pop-delay, 0s);
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.86) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Fields. Flat saturated blocks a section can sit on. These are what
+   stop the page reading as one long sheet of cream.
+   --------------------------------------------------------------------- */
+.field-madder {
+  background: var(--madder);
+  color: #fff;
+}
+.field-gold {
+  background: var(--gold);
+  color: var(--foreground);
+}
+.field-indigo {
+  background: var(--indigo);
+  color: #fff;
+}
+.field-blossom {
+  background: var(--blossom);
+  color: var(--foreground);
+}
+
+/* A dot grid, for texture under a field without adding an image. Cheap,
+   scales infinitely, and echoes the halftone of pop printing. */
+.dots {
+  background-image: radial-gradient(currentColor 1.5px, transparent 1.5px);
+  background-size: 18px 18px;
+  opacity: 0.14;
+}
+
+/* Repeating diagonal stripe — the other half of the pop-print vocabulary. */
+.stripes {
+  background-image: repeating-linear-gradient(45deg, currentColor 0 6px, transparent 6px 16px);
+  opacity: 0.12;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  .marquee-track {
+    animation: none !important;
   }
 }

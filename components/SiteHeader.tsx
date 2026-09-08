@@ -10,12 +10,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BRAND } from "@/config/brand";
 
+// Vocabulary taken from the strategy report's site architecture: The
+// House, The Sagas, The Atelier, The Laboratory. Collection is kept
+// alongside Atelier rather than folded into it, because one is the shop
+// and the other is the craft, and collapsing them would bury the
+// techniques that justify the price.
 const LINKS = [
-  { href: "/collection", label: "Collection" },
-  { href: "/atelier", label: "Atelier" },
   { href: "/mascots", label: "The House" },
-  { href: "/series", label: "The Series" },
-  { href: "/production", label: "How It's Made" },
+  { href: "/series", label: "The Sagas" },
+  { href: "/collection", label: "Collection" },
+  { href: "/atelier", label: "The Atelier" },
+  { href: "/laboratory", label: "The Laboratory" },
 ];
 
 export function SiteHeader() {
