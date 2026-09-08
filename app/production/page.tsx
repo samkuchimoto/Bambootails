@@ -90,7 +90,7 @@ export default function Production() {
             a stake nobody can lose is not a hook.
           </p>
 
-          <ol className="mt-10 divide-y divide-[var(--rule)] border-y border-[var(--rule)]">
+          <ol className="mt-10 divide-y divide-[var(--hairline)] border-y border-[var(--rule)]">
             {EPISODES.map((episode) => (
               <li key={episode.number} className="grid gap-2 py-5 sm:grid-cols-[auto_1fr] sm:gap-8">
                 <p className="label shrink-0 pt-1 text-[var(--muted)] sm:w-32">

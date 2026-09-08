@@ -52,7 +52,7 @@ export default async function PiecePage({ params }: { params: Promise<{ slug: st
             but one behind controls people have to discover. */}
         <div className="flex flex-col gap-4">
           {piece.images.map((image, index) => (
-            <div key={image.src} className="relative aspect-[4/5] w-full bg-[var(--rule)]">
+            <div key={image.src} className="relative aspect-[4/5] w-full bg-[var(--hairline)]">
               <Image
                 src={image.src}
                 alt={image.alt}
@@ -78,7 +78,7 @@ export default async function PiecePage({ params }: { params: Promise<{ slug: st
           )}
           <p className="mt-6 max-w-md leading-relaxed text-[var(--muted)]">{piece.description}</p>
 
-          <dl className="mt-10 divide-y divide-[var(--rule)] border-y border-[var(--rule)] text-sm">
+          <dl className="mt-10 divide-y divide-[var(--hairline)] border-y border-[var(--rule)] text-sm">
             {[
               ["Material", "100% silk, hand-rolled hem"],
               ["Made", "By hand, in small batches"],

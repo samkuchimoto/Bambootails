@@ -41,7 +41,7 @@ export default async function OrderPage({ params }: { params: Promise<{ slug: st
             checkout that hides what you're buying is how carts get
             abandoned. */}
         <div className="lg:sticky lg:top-8 lg:self-start">
-          <div className="relative aspect-[4/5] w-full bg-[var(--rule)]">
+          <div className="relative aspect-[4/5] w-full bg-[var(--hairline)]">
             <Image
               src={piece.images[0].src}
               alt={piece.images[0].alt}
