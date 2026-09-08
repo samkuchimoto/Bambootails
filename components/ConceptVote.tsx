@@ -59,7 +59,7 @@ export function ConceptVote({ slug, name }: { slug: string; name: string }) {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="label border-b border-[var(--foreground)] pb-0.5 transition-opacity hover:opacity-60"
+        className="keyline-sm label bg-[var(--gold)] px-4 py-2.5 transition-transform hover:-translate-y-0.5"
       >
         Make this one
       </button>
@@ -84,7 +84,7 @@ export function ConceptVote({ slug, name }: { slug: string; name: string }) {
         <button
           onClick={submit}
           disabled={status === "sending"}
-          className="label shrink-0 border-b border-[var(--foreground)] pb-2 transition-opacity hover:opacity-60 disabled:opacity-40"
+          className="keyline-sm label shrink-0 bg-[var(--madder)] px-4 py-2.5 text-white transition-transform hover:-translate-y-0.5 disabled:opacity-40"
         >
           {status === "sending" ? "…" : "Vote"}
         </button>

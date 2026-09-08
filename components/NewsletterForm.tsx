@@ -71,7 +71,7 @@ export function NewsletterForm({
         <button
           type="submit"
           disabled={status === "sending"}
-          className="label shrink-0 border-b border-[var(--foreground)] pb-2 transition-opacity hover:opacity-60 disabled:opacity-40"
+          className="keyline-sm label shrink-0 bg-[var(--madder)] px-4 py-2.5 text-white transition-transform hover:-translate-y-0.5 disabled:opacity-40"
         >
           {status === "sending" ? "…" : cta}
         </button>

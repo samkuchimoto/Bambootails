@@ -125,7 +125,7 @@ export function OrderForm({
       <button
         type="submit"
         disabled={status === "sending"}
-        className="label w-full bg-[var(--foreground)] px-8 py-4 text-[var(--background)] transition-opacity hover:opacity-85 disabled:opacity-40 sm:w-auto"
+        className="keyline label w-full bg-[var(--madder)] px-8 py-4 text-white transition-transform hover:-translate-y-1 disabled:opacity-40 sm:w-auto"
       >
         {status === "sending" ? "Placing…" : `Place order — ${CURRENCY.symbol}${total}`}
       </button>
