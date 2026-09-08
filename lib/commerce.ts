@@ -44,8 +44,12 @@ export type OrderRequest = {
 
 export type OrderRecord = OrderRequest & {
   pieceName: string;
-  unitPriceEur: number;
-  totalEur: number;
+  /** Amounts are in the catalogue currency — see CURRENCY in lib/catalog.
+   *  Deliberately not named for a currency, so changing it does not
+   *  silently mislabel every order email already in someone inbox. */
+  unitPrice: number;
+  total: number;
+  currency: string;
   placedAt: string;
 };
 

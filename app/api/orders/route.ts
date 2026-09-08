@@ -4,11 +4,11 @@
 // The route re-derives the piece, its name and its price from the
 // server-side catalogue using only the slug the client sent. It never
 // trusts a price, a name or an availability from the request body —
-// otherwise anyone could POST a €0 order for a concept piece, and the
+// otherwise anyone could POST a zero-price order for a concept piece, and the
 // first person to open devtools would find that out.
 
 import { NextResponse } from "next/server";
-import { PIECES, isBuyable } from "@/lib/catalog";
+import { CURRENCY, PIECES, isBuyable } from "@/lib/catalog";
 import { MAX_QUANTITY, type OrderRecord } from "@/lib/commerce";
 
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
@@ -54,8 +54,9 @@ export async function POST(request: Request) {
     pieceSlug: piece.slug,
     pieceName: piece.name,
     quantity,
-    unitPriceEur: piece.price,
-    totalEur: piece.price * quantity,
+    unitPrice: piece.price,
+    total: piece.price * quantity,
+    currency: CURRENCY.code,
     name,
     email,
     address,
@@ -82,5 +83,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "upstream_failed" }, { status: 502 });
   }
 
-  return NextResponse.json({ ordered: true, total: record.totalEur });
+  return NextResponse.json({ ordered: true, total: record.total });
 }
