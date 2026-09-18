@@ -134,6 +134,21 @@ export default function Mascots() {
                     ))}
                   </ul>
 
+                  {/* Founders never had a CTA at all — this section is
+                      pure story until now. Same button classes as the
+                      guild cards below, so a founder card being buyable
+                      doesn't introduce a third visual register. */}
+                  {mascot.stripeUrl && (
+                    <a
+                      href={mascot.stripeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="keyline-sm label mt-6 inline-block bg-[var(--gold)] px-4 py-2.5 transition-transform hover:-translate-y-0.5"
+                    >
+                      {mascot.ctaText}
+                    </a>
+                  )}
+
                   {appearances.length > 0 && (
                     <div className="mt-8 border-t-2 border-[var(--foreground)] pt-5">
                       <p className="label text-[var(--muted)]">Appears in</p>
@@ -204,7 +219,24 @@ export default function Mascots() {
                 <p className="label mt-1 text-[var(--madder)]">{mascot.carries}</p>
                 <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">{mascot.bio}</p>
                 <div className="mt-4">
-                  <ConceptVote slug={`mascot-${mascot.slug}`} name={mascot.name} />
+                  {/* Same classes as ConceptVote's own default button
+                      (below), so a card doesn't visually change register
+                      just because it's now buyable. mascot.stripeUrl is
+                      the one thing that distinguishes a real, shippable
+                      figure from the "not yet made — vote for it" default
+                      every other guild member still shows. */}
+                  {mascot.stripeUrl ? (
+                    <a
+                      href={mascot.stripeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="keyline-sm label inline-block bg-[var(--gold)] px-4 py-2.5 transition-transform hover:-translate-y-0.5"
+                    >
+                      {mascot.ctaText}
+                    </a>
+                  ) : (
+                    <ConceptVote slug={`mascot-${mascot.slug}`} name={mascot.name} />
+                  )}
                 </div>
               </li>
             ))}

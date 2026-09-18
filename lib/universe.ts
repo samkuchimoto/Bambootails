@@ -67,6 +67,19 @@ export type Mascot = {
   traits: [string, string, string];
   portrait: string;
   tier: "founder" | "guild";
+  /**
+   * A real, buyable product for this character, sold through Stripe
+   * Checkout rather than the order-form path in lib/commerce.ts. Optional
+   * on purpose: most mascots have no product yet, and the mascots page
+   * says so explicitly ("the figures are not yet made") — that sentence
+   * is only true for whichever characters DON'T carry a stripeUrl.
+   * Setting one here is a claim that this specific figure is real and
+   * shippable; don't set it ahead of the product actually existing.
+   */
+  stripeUrl?: string;
+  /** Required alongside stripeUrl — a real Stripe link with no label
+   *  saying what it buys is a worse experience than no link at all. */
+  ctaText?: string;
 };
 
 // ---------------------------------------------------------------------
@@ -88,6 +101,8 @@ export const MASCOTS: Mascot[] = [
     traits: ["Courage", "Loyalty", "Endurance"],
     portrait: "/mascots/chibi/tao.png",
     tier: "founder",
+    stripeUrl: "https://buy.stripe.com/[LIEN_STRIPE_FOULARD_TAO]",
+    ctaText: "COMMANDER LE FOULARD EN SOIE — 249 €",
   },
   {
     slug: "lumi",
@@ -136,6 +151,13 @@ export const MASCOTS: Mascot[] = [
     traits: ["Patience", "Solitude", "Certainty"],
     portrait: "/mascots/chibi/sora.png",
     tier: "guild",
+    // The brief offered this pack's button to either "Sora" or a
+    // "Mochi Panda" that doesn't exist in this roster — see the note on
+    // the Mascot type and the flag raised alongside this change. Sora is
+    // the option that's a real, existing character, so the sticker-pack
+    // CTA lives here.
+    stripeUrl: "https://buy.stripe.com/[LIEN_STRIPE_PACK_STICKERS]",
+    ctaText: "PACK DE 4 STICKERS — 12 €",
   },
   {
     slug: "ren",
