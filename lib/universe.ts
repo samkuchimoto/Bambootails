@@ -298,6 +298,10 @@ export const MASCOTS: Mascot[] = [
     traits: ["Purity", "Calm", "Delight"],
     portrait: "/mascots/chibi/mochi.png",
     tier: "guild",
+    // Confirmed by direct instruction: the "Mochi Sprout" phone case
+    // from the original brief is this existing character, not a new one.
+    stripeUrl: "https://buy.stripe.com/[LIEN_STRIPE_COQUE_MOCHI]",
+    ctaText: "COMMANDER LA COQUE — 35 €",
   },
 ];
 
