@@ -235,7 +235,9 @@ export default function Home() {
             {FOUNDERS.map((mascot, i) => (
               <Link
                 key={mascot.slug}
-                href={`/mascots#${mascot.slug}`}
+                href={mascot.stripeUrl ?? `/mascots#${mascot.slug}`}
+                target={mascot.stripeUrl ? "_blank" : undefined}
+                rel={mascot.stripeUrl ? "noopener noreferrer" : undefined}
                 className="keyline-lift group block"
               >
                 <div className="keyline relative aspect-square w-full overflow-hidden bg-white">
@@ -265,7 +267,9 @@ export default function Home() {
               {GUILD.map((mascot, i) => (
                 <Link
                   key={mascot.slug}
-                  href={`/mascots#${mascot.slug}`}
+                  href={mascot.stripeUrl ?? `/mascots#${mascot.slug}`}
+                  target={mascot.stripeUrl ? "_blank" : undefined}
+                  rel={mascot.stripeUrl ? "noopener noreferrer" : undefined}
                   className="group w-16 text-center sm:w-20"
                 >
                   <div
