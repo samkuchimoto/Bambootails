@@ -233,55 +233,27 @@ export default function Home() {
 
           <div className="mt-12 grid max-w-2xl grid-cols-2 gap-8">
             {FOUNDERS.map((mascot, i) => (
-              <div key={mascot.slug}>
-                <Link href={`/mascots#${mascot.slug}`} className="keyline-lift group block">
-                  <div className="keyline relative aspect-square w-full overflow-hidden bg-white">
-                    <Image
-                      src={mascot.portrait}
-                      alt={`${mascot.name}, the ${mascot.species} from ${mascot.city}`}
-                      fill
-                      priority={i === 0}
-                      sizes="(max-width: 640px) 45vw, 24vw"
-                      className="object-contain p-4"
-                    />
-                  </div>
-                  <p className="pop mt-4 text-2xl text-white">{mascot.name}</p>
-                  <p className="label mt-1 text-white/50">
-                    {mascot.city} · {mascot.species}
-                  </p>
-                  <p className="mt-2 text-sm leading-relaxed text-white/70">{mascot.role}</p>
-                </Link>
-                {/* A real buy button, separate from the card's own link to
-                    /mascots — nesting an <a> inside that Link isn't valid
-                    HTML, and swapping the whole card's destination (the
-                    previous approach) made the purchase invisible. Tao's
-                    card above stays pure story/illustration — the actual
-                    scarf photo goes here instead of replacing his portrait,
-                    since he's a Shiba and the real scarf photos are shot on
-                    a Pomeranian; swapping his hero image would read as the
-                    wrong dog, not "now real". */}
-                {mascot.slug === "tao" && mascot.stripeUrl && (
-                  <div className="mt-4">
-                    <div className="keyline-sm relative aspect-[4/3] w-full overflow-hidden">
-                      <Image
-                        src="/images/scarf-hibiscus-hero.jpg"
-                        alt="The hand-loomed silk scarf, photographed on the actual weave sold at checkout"
-                        fill
-                        sizes="(max-width: 640px) 90vw, 24vw"
-                        className="object-cover"
-                      />
-                    </div>
-                    <a
-                      href={mascot.stripeUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="keyline-sm label mt-3 inline-block bg-[var(--gold)] px-4 py-2.5 transition-transform hover:-translate-y-0.5"
-                    >
-                      COMMANDER LE FOULARD — 249 €
-                    </a>
-                  </div>
-                )}
-              </div>
+              <Link
+                key={mascot.slug}
+                href={`/mascots#${mascot.slug}`}
+                className="keyline-lift group block"
+              >
+                <div className="keyline relative aspect-square w-full overflow-hidden bg-white">
+                  <Image
+                    src={mascot.portrait}
+                    alt={`${mascot.name}, the ${mascot.species} from ${mascot.city}`}
+                    fill
+                    priority={i === 0}
+                    sizes="(max-width: 640px) 45vw, 24vw"
+                    className="object-contain p-4"
+                  />
+                </div>
+                <p className="pop mt-4 text-2xl text-white">{mascot.name}</p>
+                <p className="label mt-1 text-white/50">
+                  {mascot.city} · {mascot.species}
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-white/70">{mascot.role}</p>
+              </Link>
             ))}
           </div>
 
@@ -290,76 +262,111 @@ export default function Home() {
               And the guild — twelve species, eight cities, one craft each
             </p>
             <div className="mt-6 flex flex-wrap items-start gap-x-5 gap-y-7">
-              {GUILD.map((mascot, i) => {
-                // Compact copy for these two only — the founder-card CTA
-                // text ("COMMANDER LE FOULARD...") doesn't fit an 80px
-                // column, so the guild grid gets its own short label.
-                const compactCta: Record<string, string> = {
-                  sora: "STICKERS — 12 €",
-                  mochi: "COQUE — 35 €",
-                };
-                const cta = compactCta[mascot.slug];
-                // The actual photographed product, not the cast
-                // illustration above it — shown only for the two guild
-                // members with something real to sell.
-                const productPhoto: Record<string, { src: string; alt: string }> = {
-                  sora: {
-                    src: "/images/product-sticker-sora.png",
-                    alt: "One of the four vinyl stickers in the pack, photographed",
-                  },
-                  mochi: {
-                    src: "/images/product-mochi-phone-case.png",
-                    alt: "The actual phone case design, photographed",
-                  },
-                };
-                const photo = productPhoto[mascot.slug];
-                return (
-                  <div key={mascot.slug} className="w-16 text-center sm:w-20">
-                    <Link href={`/mascots#${mascot.slug}`} className="group block">
-                      <div
-                        className="float keyline-sm relative aspect-square w-full overflow-hidden bg-white"
-                        style={
-                          {
-                            "--float-delay": `${(i % 6) * 0.4}s`,
-                            "--float-duration": `${3.6 + (i % 4) * 0.5}s`,
-                          } as React.CSSProperties
-                        }
-                      >
-                        <Image
-                          src={mascot.portrait}
-                          alt={`${mascot.name}, the ${mascot.species}`}
-                          fill
-                          sizes="80px"
-                          className="object-contain p-1.5"
-                        />
-                      </div>
-                      <p className="display mt-2 text-base text-white">{mascot.name}</p>
-                    </Link>
-                    {/* Sora and Mochi get a real product photo and a
-                        second, real button on top of the decorative card
-                        above — same reasoning as Tao's: a separate visible
-                        element, not a swapped link, is the only way this
-                        reads as "for sale" at this size. The other ten
-                        members are untouched. */}
-                    {photo && (
-                      <div className="keyline-sm relative mt-2 aspect-square w-full overflow-hidden">
-                        <Image src={photo.src} alt={photo.alt} fill sizes="80px" className="object-cover" />
-                      </div>
-                    )}
-                    {mascot.stripeUrl && cta && (
-                      <a
-                        href={mascot.stripeUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="keyline-sm label mt-2 inline-block bg-[var(--gold)] px-1.5 py-1 text-[0.55rem] leading-tight transition-transform hover:-translate-y-0.5"
-                      >
-                        {cta}
-                      </a>
-                    )}
+              {GUILD.map((mascot, i) => (
+                <Link
+                  key={mascot.slug}
+                  href={`/mascots#${mascot.slug}`}
+                  className="group w-16 text-center sm:w-20"
+                >
+                  <div
+                    className="float keyline-sm relative aspect-square w-full overflow-hidden bg-white"
+                    style={
+                      {
+                        "--float-delay": `${(i % 6) * 0.4}s`,
+                        "--float-duration": `${3.6 + (i % 4) * 0.5}s`,
+                      } as React.CSSProperties
+                    }
+                  >
+                    <Image
+                      src={mascot.portrait}
+                      alt={`${mascot.name}, the ${mascot.species}`}
+                      fill
+                      sizes="80px"
+                      className="object-contain p-1.5"
+                    />
                   </div>
-                );
-              })}
+                  <p className="display mt-2 text-base text-white">{mascot.name}</p>
+                </Link>
+              ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------------------
+          DROP 01 — THE FOUNDATION. Three real, photographed pieces, in
+          one dedicated section between the cast (The House, pure story)
+          and the numbered scarf batches (The Atelier, the full
+          collection) — so "buyable right now" gets its own place
+          instead of living inside either of those.
+          --------------------------------------------------------------- */}
+      <section className="border-b-2 border-[var(--foreground)] bg-[var(--background)]">
+        <div className="mx-auto max-w-6xl px-6 py-16 sm:py-24">
+          <p className="label text-[var(--madder)]">Test capsule</p>
+          <h2 className="pop mt-3 text-3xl sm:text-5xl">Drop 01 — the foundation</h2>
+          <p className="mt-4 max-w-xl leading-relaxed text-[var(--muted)]">
+            Three pieces, live now — photographed, not drawn.
+          </p>
+
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+            {[
+              {
+                slug: "tao",
+                image: "/images/drop01-tao-foulard.jpg",
+                alt: "The hand-loomed silk foulard, photographed on the actual weave sold at checkout",
+                title: "Tao Silk Foulard — Chiang Mai",
+                price: "249 €",
+                cta: "COMMANDER — 249 €",
+              },
+              {
+                slug: "mochi",
+                image: "/images/product-mochi-phone-case.png",
+                alt: "The actual phone case design, photographed",
+                title: "Mochi Atelier Case — Kyoto",
+                price: "35 €",
+                cta: "COMMANDER — 35 €",
+              },
+              {
+                slug: "sora",
+                image: "/images/product-sticker-sora.png",
+                alt: "One of the four vinyl stickers in the pack, photographed",
+                title: "Guild Sticker Pack (Set of 4)",
+                price: "12 €",
+                cta: "COMMANDER — 12 €",
+              },
+            ].map((item) => {
+              // stripeUrl lives on the mascot record (lib/universe.ts) —
+              // read from there rather than duplicating the URL here, so
+              // there's one place to update when the real Stripe links
+              // replace the placeholders.
+              const mascot = mascotBySlug(item.slug);
+              if (!mascot?.stripeUrl) return null;
+              return (
+                <div key={item.slug} className="keyline flex flex-col bg-white">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden border-b-2 border-[var(--foreground)]">
+                    <Image
+                      src={item.image}
+                      alt={item.alt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col p-6">
+                    <h3 className="display text-xl">{item.title}</h3>
+                    <p className="pop mt-2 text-2xl text-[var(--madder)]">{item.price}</p>
+                    <a
+                      href={mascot.stripeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="keyline-sm label mt-6 inline-block self-start bg-[var(--gold)] px-4 py-2.5 transition-transform hover:-translate-y-0.5"
+                    >
+                      {item.cta}
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
