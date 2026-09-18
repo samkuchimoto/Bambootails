@@ -254,18 +254,32 @@ export default function Home() {
                 {/* A real buy button, separate from the card's own link to
                     /mascots — nesting an <a> inside that Link isn't valid
                     HTML, and swapping the whole card's destination (the
-                    previous approach) made the purchase invisible. This is
-                    the only visible way to say "this one is for sale"
-                    without touching the card itself. */}
+                    previous approach) made the purchase invisible. Tao's
+                    card above stays pure story/illustration — the actual
+                    scarf photo goes here instead of replacing his portrait,
+                    since he's a Shiba and the real scarf photos are shot on
+                    a Pomeranian; swapping his hero image would read as the
+                    wrong dog, not "now real". */}
                 {mascot.slug === "tao" && mascot.stripeUrl && (
-                  <a
-                    href={mascot.stripeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="keyline-sm label mt-4 inline-block bg-[var(--gold)] px-4 py-2.5 transition-transform hover:-translate-y-0.5"
-                  >
-                    COMMANDER LE FOULARD — 249 €
-                  </a>
+                  <div className="mt-4">
+                    <div className="keyline-sm relative aspect-[4/3] w-full overflow-hidden">
+                      <Image
+                        src="/images/scarf-hibiscus-hero.jpg"
+                        alt="The hand-loomed silk scarf, photographed on the actual weave sold at checkout"
+                        fill
+                        sizes="(max-width: 640px) 90vw, 24vw"
+                        className="object-cover"
+                      />
+                    </div>
+                    <a
+                      href={mascot.stripeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="keyline-sm label mt-3 inline-block bg-[var(--gold)] px-4 py-2.5 transition-transform hover:-translate-y-0.5"
+                    >
+                      COMMANDER LE FOULARD — 249 €
+                    </a>
+                  </div>
                 )}
               </div>
             ))}
@@ -285,6 +299,20 @@ export default function Home() {
                   mochi: "COQUE — 35 €",
                 };
                 const cta = compactCta[mascot.slug];
+                // The actual photographed product, not the cast
+                // illustration above it — shown only for the two guild
+                // members with something real to sell.
+                const productPhoto: Record<string, { src: string; alt: string }> = {
+                  sora: {
+                    src: "/images/product-sticker-sora.png",
+                    alt: "One of the four vinyl stickers in the pack, photographed",
+                  },
+                  mochi: {
+                    src: "/images/product-mochi-phone-case.png",
+                    alt: "The actual phone case design, photographed",
+                  },
+                };
+                const photo = productPhoto[mascot.slug];
                 return (
                   <div key={mascot.slug} className="w-16 text-center sm:w-20">
                     <Link href={`/mascots#${mascot.slug}`} className="group block">
@@ -307,11 +335,17 @@ export default function Home() {
                       </div>
                       <p className="display mt-2 text-base text-white">{mascot.name}</p>
                     </Link>
-                    {/* Sora and Mochi get a second, real product on top of
-                        the decorative card above — same reasoning as
-                        Tao's: a separate visible button, not a swapped
-                        link, is the only way this reads as "for sale" at
-                        this size. The other ten members are untouched. */}
+                    {/* Sora and Mochi get a real product photo and a
+                        second, real button on top of the decorative card
+                        above — same reasoning as Tao's: a separate visible
+                        element, not a swapped link, is the only way this
+                        reads as "for sale" at this size. The other ten
+                        members are untouched. */}
+                    {photo && (
+                      <div className="keyline-sm relative mt-2 aspect-square w-full overflow-hidden">
+                        <Image src={photo.src} alt={photo.alt} fill sizes="80px" className="object-cover" />
+                      </div>
+                    )}
                     {mascot.stripeUrl && cta && (
                       <a
                         href={mascot.stripeUrl}
