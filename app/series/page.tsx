@@ -201,6 +201,41 @@ export default function Series() {
                           </Link>
                         )}
                       </div>
+
+                      {/* Episode 01 only — three unedited style tests for
+                          the same scene, not three cuts of a finished
+                          video. Labelled that way on purpose: this episode
+                          is still "in production" per its status badge
+                          above, and showing rough tests as if they were
+                          final would contradict that label. */}
+                      {episode.number === 1 && (
+                        <div className="mt-6 max-w-2xl">
+                          <p className="label text-[var(--muted)]">
+                            First look — three style tests, unedited
+                          </p>
+                          <div className="mt-3 grid grid-cols-3 gap-3">
+                            {[
+                              { src: "/videos/episode-01-part-1.mp4", label: "Part 1" },
+                              { src: "/videos/episode-01-part-2.mp4", label: "Part 2" },
+                              { src: "/videos/episode-01-part-3.mp4", label: "Part 3" },
+                            ].map((clip) => (
+                              <div key={clip.src} className="keyline-sm overflow-hidden bg-black">
+                                <video
+                                  src={clip.src}
+                                  autoPlay
+                                  loop
+                                  muted
+                                  playsInline
+                                  className="aspect-[9/16] w-full object-cover"
+                                />
+                                <p className="label bg-[var(--foreground)] px-2 py-1 text-center text-[0.6rem] text-white">
+                                  {clip.label}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
 
                     {/* Who's in it, shown rather than listed. */}
