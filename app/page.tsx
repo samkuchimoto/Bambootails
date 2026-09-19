@@ -5,6 +5,7 @@ import { BRAND } from "@/config/brand";
 import { CURRENCY, PIECES, CONCEPTS, isBuyable } from "@/lib/catalog";
 import { EPISODES, EPISODE_STATUS_LABEL, FOUNDERS, GUILD, mascotBySlug } from "@/lib/universe";
 import { HookMarquee } from "@/components/HookMarquee";
+import { HeroVideo } from "@/components/HeroVideo";
 import { CastCharge } from "@/components/CastCharge";
 import { ConceptVote } from "@/components/ConceptVote";
 import { NewsletterForm } from "@/components/NewsletterForm";
@@ -28,22 +29,16 @@ export default function Home() {
   return (
     <div>
       {/* ---------------------------------------------------------------
-          HERO. Real footage instead of the flat colour field — the first
-          episode-01 test render, muted and looping, with a dark scrim so
-          type stays fully legible over live-action rather than a graphic
-          ground. The product photograph still sits on top as a hard-edged
-          object, so the Superflat collision (manga graphic vs. real
-          photograph) still holds even with video underneath it.
+          HERO. Real footage instead of the flat colour field — the three
+          episode-01 test renders cycling in sequence (HeroVideo), with a
+          dark scrim so type stays fully legible over live-action rather
+          than a graphic ground. The product photograph still sits on top
+          as a hard-edged object, so the Superflat collision (manga
+          graphic vs. real photograph) still holds even with video
+          underneath it.
           --------------------------------------------------------------- */}
       <section className="relative min-h-[88vh] overflow-hidden border-b-2 border-[var(--foreground)] bg-[var(--foreground)]">
-        <video
-          src="/videos/episode-01-part-1.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 h-full w-full object-cover"
-        />
+        <HeroVideo />
         {/* Dark scrim, not the old dots pattern — the video already
             supplies texture, and this is what keeps "Leap anyway." and
             the nav crisp over moving footage. */}
