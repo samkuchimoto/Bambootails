@@ -28,15 +28,26 @@ export default function Home() {
   return (
     <div>
       {/* ---------------------------------------------------------------
-          HERO. A saturated field with the cast drifting across it, and
-          the product photograph cut into it as a hard-edged object.
-          That collision — screaming graphic ground against a still,
-          real photograph — is the Superflat move, and it is also the
-          brand's actual thesis: manga and Hermes in one frame rather
-          than in two separate sections.
+          HERO. Real footage instead of the flat colour field — the first
+          episode-01 test render, muted and looping, with a dark scrim so
+          type stays fully legible over live-action rather than a graphic
+          ground. The product photograph still sits on top as a hard-edged
+          object, so the Superflat collision (manga graphic vs. real
+          photograph) still holds even with video underneath it.
           --------------------------------------------------------------- */}
-      <section className="field-madder relative min-h-[88vh] overflow-hidden border-b-2 border-[var(--foreground)]">
-        <div className="dots absolute inset-0 text-white" aria-hidden />
+      <section className="relative min-h-[88vh] overflow-hidden border-b-2 border-[var(--foreground)] bg-[var(--foreground)]">
+        <video
+          src="/videos/episode-01-part-1.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        {/* Dark scrim, not the old dots pattern — the video already
+            supplies texture, and this is what keeps "Leap anyway." and
+            the nav crisp over moving footage. */}
+        <div className="absolute inset-0 bg-black/60" aria-hidden />
 
         {/* The charge runs behind and beneath the type: the whole guild
             leaping left to right on a rising diagonal, scaling up, the
@@ -71,13 +82,14 @@ export default function Home() {
           </h1>
 
           <p className="display mt-8 max-w-2xl text-2xl italic leading-tight text-white sm:text-4xl">
-            Fourteen outcasts. One sacred weave. A maison reborn.
+            Fourteen characters. One drop live right now. The first fifty go first.
           </p>
 
           <p className="mt-6 max-w-lg leading-relaxed text-white/85">
             Two dogs founded the house. The masters who joined are a cat, a chick, a tortoise and a
             panda — because when the factories forgot how to do this, the ones who remembered were
-            not who anybody expected.
+            not who anybody expected, and what&apos;s left of that craft gets cut in fifties now,
+            never reprinted.
           </p>
 
           <div className="mt-10 flex flex-wrap gap-4">
@@ -91,7 +103,7 @@ export default function Home() {
               href="/collection"
               className="keyline label bg-white px-8 py-4 text-[var(--foreground)] transition-transform hover:-translate-y-1"
             >
-              Acquire the collection
+              Own a numbered cut
             </Link>
           </div>
 
@@ -114,7 +126,7 @@ export default function Home() {
               />
             </div>
             <div>
-              <p className="label text-[var(--madder)]">Batch 01 — 50 numbered cuts</p>
+              <p className="label text-[var(--madder)]">Batch 01 — 50 numbered cuts. No reprint.</p>
               <p className="display mt-1 text-xl">
                 {hero.name} — {CURRENCY.symbol}
                 {isBuyable(hero) ? hero.price : "—"}
@@ -302,37 +314,40 @@ export default function Home() {
           --------------------------------------------------------------- */}
       <section className="border-b-2 border-[var(--foreground)] bg-[var(--background)]">
         <div className="mx-auto max-w-6xl px-6 py-16 sm:py-24">
-          <p className="label text-[var(--madder)]">Test capsule</p>
-          <h2 className="pop mt-3 text-3xl sm:text-5xl">Drop 01 — the foundation</h2>
+          <p className="label text-[var(--madder)]">The stair-step</p>
+          <h2 className="pop mt-3 text-3xl sm:text-5xl">Drop 01 — three ways in</h2>
           <p className="mt-4 max-w-xl leading-relaxed text-[var(--muted)]">
-            Three pieces, live now — photographed, not drawn.
+            The cheapest way in is twelve euros. Real photos, real checkout — nothing here is a
+            drawing.
           </p>
 
+          {/* Ordered low to high on purpose — a real stair-step, not just
+              three unrelated prices. Cheapest entry point first. */}
           <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
             {[
               {
-                slug: "tao",
-                image: "/images/drop01-tao-foulard.jpg",
-                alt: "The hand-loomed silk foulard, photographed on the actual weave sold at checkout",
-                title: "Tao Silk Foulard — Chiang Mai",
-                price: "249 €",
-                cta: "COMMANDER — 249 €",
+                slug: "sora",
+                image: "/images/product-sticker-sora.png",
+                alt: "One of the four vinyl stickers in the pack, photographed",
+                title: "Start Here — Guild Sticker Pack",
+                price: "12 €",
+                cta: "GET IN — 12 €",
               },
               {
                 slug: "mochi",
                 image: "/images/product-mochi-phone-case.png",
                 alt: "The actual phone case design, photographed",
-                title: "Mochi Atelier Case — Kyoto",
+                title: "Carry It Everywhere — Mochi Case",
                 price: "35 €",
-                cta: "COMMANDER — 35 €",
+                cta: "CARRY IT — 35 €",
               },
               {
-                slug: "sora",
-                image: "/images/product-sticker-sora.png",
-                alt: "One of the four vinyl stickers in the pack, photographed",
-                title: "Guild Sticker Pack (Set of 4)",
-                price: "12 €",
-                cta: "COMMANDER — 12 €",
+                slug: "tao",
+                image: "/images/drop01-tao-foulard.jpg",
+                alt: "The hand-loomed silk foulard, photographed on the actual weave sold at checkout",
+                title: "The Piece This House Was Built For",
+                price: "249 €",
+                cta: "CLAIM YOUR CUT — 249 €",
               },
             ].map((item) => {
               // stripeUrl lives on the mascot record (lib/universe.ts) —
@@ -457,17 +472,16 @@ export default function Home() {
         <div className="stripes absolute inset-0 text-[var(--foreground)]" aria-hidden />
         <div className="relative mx-auto max-w-6xl px-6 py-16 sm:py-24">
           <p className="label text-[var(--foreground)]/60">The laboratory</p>
-          <h2 className="pop mt-3 text-3xl sm:text-5xl">Five hundred votes cuts it for real</h2>
+          <h2 className="pop mt-3 text-3xl sm:text-5xl">Five hundred votes. One real cut. Nothing else gets made.</h2>
           <p className="mt-4 max-w-xl leading-relaxed text-[var(--foreground)]/80">
-            Drawn, not made. Everything here is labelled a concept on its own card, because a house
-            that blurs the line between what it imagines and what it ships only gets to do it once.
-            Back one and we cut fifty.
+            Drawn, not made — yet. Vote with your interest, not your opinion: whichever concept
+            hits five hundred first gets fifty units cut for real. The rest stay drawings.
           </p>
 
           <ul className="mt-12 grid gap-8 sm:grid-cols-2">
             {CONCEPTS.map((concept) => (
               <li key={concept.slug} className="keyline bg-[var(--background)] p-7">
-                <p className="label text-[var(--madder)]">Concept — not for sale</p>
+                <p className="label text-[var(--madder)]">Concept — vote to make it real</p>
                 <h3 className="display mt-3 text-2xl">{concept.name}</h3>
                 <p className="mt-3 leading-relaxed text-[var(--muted)]">{concept.description}</p>
                 <div className="mt-6">
@@ -478,12 +492,13 @@ export default function Home() {
           </ul>
 
           <div className="mt-12 max-w-md">
-            <p className="label text-[var(--foreground)]/60">The list hears first</p>
+            <p className="label text-[var(--foreground)]/60">First access, not a newsletter</p>
             <p className="mt-2 text-sm leading-relaxed text-[var(--foreground)]/80">
-              New chapters and new batches, before they go anywhere else.
+              Every new drop, before it goes public. No spam — one line, only when something&apos;s
+              real.
             </p>
             <div className="mt-4">
-              <NewsletterForm source="home-laboratory" cta="Join" />
+              <NewsletterForm source="home-laboratory" cta="First access" />
             </div>
           </div>
         </div>

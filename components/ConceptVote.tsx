@@ -61,7 +61,7 @@ export function ConceptVote({ slug, name }: { slug: string; name: string }) {
         onClick={() => setOpen(true)}
         className="keyline-sm label bg-[var(--gold)] px-4 py-2.5 transition-transform hover:-translate-y-0.5"
       >
-        Make this one
+        Vote — Make This Real
       </button>
     );
   }

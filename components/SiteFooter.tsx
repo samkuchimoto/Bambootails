@@ -72,13 +72,13 @@ export function SiteFooter() {
         <div>
           <div className="keyline bg-[var(--background)] p-6 text-[var(--foreground)]">
             <p className="label text-[var(--madder)]">The list</p>
-            <p className="pop mt-3 text-2xl">Fifty at a time</p>
+            <p className="pop mt-3 text-2xl">Fifty. Then gone.</p>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-[var(--muted)]">
-              New prints are cut in small numbers and new chapters land before they go anywhere
-              else. The list hears first.
+              New prints are cut in fifties and never recut. The list hears before the drop goes
+              live — not after.
             </p>
             <div className="mt-5">
-              <NewsletterForm source="footer" />
+              <NewsletterForm source="footer" cta="First access" />
             </div>
           </div>
         </div>
