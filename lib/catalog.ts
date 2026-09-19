@@ -146,8 +146,8 @@ export const PIECES: Piece[] = [
         alt: "The Chrysanthemum silk scarf laid flat, showing the full amber and coral print",
       },
       {
-        src: "/images/scarf-chrysanthemum-04.jpg",
-        alt: "The Chrysanthemum scarf worn draped over the head, framing the dog's face",
+        src: "/images/scarf-chrysanthemum-05.jpg",
+        alt: "The Chrysanthemum silk scarf tied at the neck, shown in profile",
       },
     ],
     provenance: {
@@ -167,12 +167,16 @@ export const PIECES: Piece[] = [
     price: PRICE_TIERS.signature,
     images: [
       {
-        src: "/images/scarf-meadow-01.jpg",
-        alt: "A cream Pomeranian standing, wearing the Orchid silk scarf in pale green and cream",
+        src: "/images/scarf-orchid-01.jpg",
+        alt: "A cream Pomeranian standing side-on, wearing the Orchid silk scarf in pale green, grey and cream",
       },
       {
-        src: "/images/scarf-meadow-03.jpg",
-        alt: "The Orchid silk scarf worn over the head like a headscarf",
+        src: "/images/scarf-orchid-02.jpg",
+        alt: "The Orchid silk scarf worn tied under the chin like a headscarf",
+      },
+      {
+        src: "/images/scarf-orchid-03.jpg",
+        alt: "The Orchid scarf draped over the back, the dog seated on black leather",
       },
     ],
     provenance: {

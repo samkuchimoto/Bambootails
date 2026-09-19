@@ -67,8 +67,8 @@ export default function GetApp() {
 
           <div className="keyline relative aspect-[4/5] w-full overflow-hidden bg-black">
             <Image
-              src="/images/scarf-chrysanthemum-04.jpg"
-              alt="A cream Pomeranian wearing the Chrysanthemum silk scarf draped over the head"
+              src="/images/scarf-orchid-03.jpg"
+              alt="A cream Pomeranian wearing the Orchid silk scarf draped over the back"
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 50vw"
