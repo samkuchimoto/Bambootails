@@ -101,7 +101,7 @@ export const MASCOTS: Mascot[] = [
     traits: ["Courage", "Loyalty", "Endurance"],
     portrait: "/mascots/chibi/tao.png",
     tier: "founder",
-    stripeUrl: "https://buy.stripe.com/[LIEN_STRIPE_FOULARD_TAO]",
+    stripeUrl: "https://buy.stripe.com/bJecN71rH6vQc4Q1buaR203",
     ctaText: "COMMANDER LE FOULARD EN SOIE — 249 €",
   },
   {
@@ -156,7 +156,7 @@ export const MASCOTS: Mascot[] = [
     // the Mascot type and the flag raised alongside this change. Sora is
     // the option that's a real, existing character, so the sticker-pack
     // CTA lives here.
-    stripeUrl: "https://buy.stripe.com/[LIEN_STRIPE_PACK_STICKERS]",
+    stripeUrl: "https://buy.stripe.com/eVqbJ3eet1bwb0M7zSaR200",
     ctaText: "PACK DE 4 STICKERS — 12 €",
   },
   {
@@ -300,7 +300,7 @@ export const MASCOTS: Mascot[] = [
     tier: "guild",
     // Confirmed by direct instruction: the "Mochi Sprout" phone case
     // from the original brief is this existing character, not a new one.
-    stripeUrl: "https://buy.stripe.com/[LIEN_STRIPE_COQUE_MOCHI]",
+    stripeUrl: "https://buy.stripe.com/00wfZjgmB07sfh23jCaR204",
     ctaText: "COMMANDER LA COQUE — 35 €",
   },
 ];
