@@ -83,7 +83,7 @@ export const PRICE_TIERS = {
   /** Small silk goods and the pochette. */
   accessory: 89,
   /** The flagship: hand-rolled artisan silk. Where the house begins. */
-  signature: 349,
+  signature: 249,
   /** A print that will not be cut again. */
   limited: 429,
   /** Numbered, with the number on the label. */

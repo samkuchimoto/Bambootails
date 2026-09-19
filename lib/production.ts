@@ -152,7 +152,7 @@ export const PYRAMID: PyramidLayer[] = [
     layer: "Haute couture crown",
     asset: "Hand-rolled Thai Mudmee silk scarves",
     audience: "Collectors, high-net-worth pet owners",
-    price: "$349",
+    price: "$249",
     margin: "65–75%",
     purpose:
       "Establishes that the craft is real. Everything below it borrows credibility from this and gives back reach.",
