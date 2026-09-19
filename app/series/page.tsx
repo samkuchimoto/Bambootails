@@ -211,13 +211,17 @@ export default function Series() {
                       {episode.number === 1 && (
                         <div className="mt-6 max-w-2xl">
                           <p className="label text-[var(--muted)]">
-                            First look — three style tests, unedited
+                            First look — four style tests, unedited
                           </p>
-                          <div className="mt-3 grid grid-cols-3 gap-3">
+                          {/* 2x2 on mobile, one row of four from sm up —
+                              grid-cols-3 would leave a fourth clip alone
+                              on its own row once a 4th test was added. */}
+                          <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
                             {[
                               { src: "/videos/episode-01-part-1.mp4", label: "Part 1" },
                               { src: "/videos/episode-01-part-2.mp4", label: "Part 2" },
                               { src: "/videos/episode-01-part-3.mp4", label: "Part 3" },
+                              { src: "/videos/episode-01-part-4.mp4", label: "Part 4" },
                             ].map((clip) => (
                               <div key={clip.src} className="keyline-sm overflow-hidden bg-black">
                                 <video
