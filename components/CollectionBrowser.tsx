@@ -18,14 +18,14 @@ export type CollectionItem = {
   price: number | null;
   label: string | null;
   provenance: string | null;
-  category: PieceCategory;
+  categories: PieceCategory[];
 };
 
 export function CollectionBrowser({ items }: { items: CollectionItem[] }) {
   const [tabId, setTabId] = useState<(typeof COLLECTION_TABS)[number]["id"]>("all");
   const tab = COLLECTION_TABS.find((t) => t.id === tabId) ?? COLLECTION_TABS[0];
   const visible = items.filter((item) =>
-    (tab.categories as readonly PieceCategory[]).includes(item.category),
+    item.categories.some((c) => (tab.categories as readonly PieceCategory[]).includes(c)),
   );
 
   return (

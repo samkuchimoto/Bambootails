@@ -59,6 +59,10 @@ export type Piece = {
   stripeUrl?: string;
   /** Which shelf it lives on. Omitted means "silk" — the original range. */
   category?: PieceCategory;
+  /** Extra /collection tabs it also appears under. Filters only: the
+   *  homepage silk grid and every other consumer still key off the
+   *  primary category, so this can't leak a piece into another section. */
+  alsoIn?: PieceCategory[];
   /** Short label shown on the card in place of the tier name. */
   badge?: string;
 };
@@ -69,11 +73,16 @@ export function categoryOf(piece: Piece): PieceCategory {
   return piece.category ?? "silk";
 }
 
+export function categoriesOf(piece: Piece): PieceCategory[] {
+  return [categoryOf(piece), ...(piece.alsoIn ?? [])];
+}
+
 /** The /collection filter tabs. Silk and apparel share one tab: both are
  *  the human-and-dog atelier range, as opposed to the dedicated canine
  *  and collectible lines. */
 export const COLLECTION_TABS = [
   { id: "all", label: "All Pieces", categories: ["silk", "apparel", "canine", "collectibles"] },
+  { id: "silk", label: "Silk — Batch 01", categories: ["silk"] },
   { id: "atelier", label: "Atelier & Apparel", categories: ["silk", "apparel"] },
   { id: "canine", label: "Canine Prestige", categories: ["canine"] },
   { id: "collectibles", label: "Collectibles", categories: ["collectibles"] },
@@ -198,6 +207,26 @@ export const PIECES: Piece[] = [
       handHours: 6,
     },
   },
+  // The boxed collector edition of the Chrysanthemum print. No provenance
+  // block: the 6-hour figure above was given for the plain scarf, and
+  // nobody has said whether the box changes it.
+  {
+    slug: "heritage-silk-scarf-chrysanthemum-box",
+    category: "silk",
+    name: "Heritage Thai Silk Scarf — Chrysanthemum Collector Box",
+    badge: "Limited to 50 cuts",
+    description:
+      "Hand-reeled 4-ply Thai raw silk in the historic Chrysanthemum botanical print, finished with hand-rolled edges (roulotté main). Presented in a rigid matte-black presentation box with archival tissue.",
+    availability: "atelier",
+    tier: "signature",
+    price: PRICE_TIERS.signature,
+    images: [
+      {
+        src: "/images/products/silk-scarf-collector-box.png",
+        alt: "Studio mockup of the Chrysanthemum silk scarf spilling from a matte-black presentation box, hem printed Limited Batch of 50 cuts",
+      },
+    ],
+  },
   {
     slug: "orchid",
     name: "Orchid",
@@ -305,22 +334,21 @@ export const PIECES: Piece[] = [
   },
   // The Paris Jacket graduated from CONCEPTS: it is now an open pre-order,
   // limited to 8 bespoke units, so it lives here and no longer in the
-  // laboratory. The description deliberately doesn't name a print — the
-  // mockup shows the Chrysanthemum weave, and an earlier draft said
-  // Golden Palms; the two can't both be right until someone decides.
+  // laboratory. Print confirmed as Chrysanthemum (the mockup already showed
+  // it; an earlier draft of the brief said Golden Palms).
   {
     slug: "the-paris-jacket",
     category: "apparel",
     name: "The Paris Jacket",
     badge: "Pre-order — 8 bespoke units",
     description:
-      "Bespoke unisex quilted bomber jacket cut from lustrous, heavyweight 4-ply Thai raw silk in one of the house's botanical prints. Tailored Parisian drop-shoulder silhouette, heavyweight cotton ribbing and an antiqued brass two-way zipper. Open pre-order, limited to 8 bespoke units.",
+      "Bespoke unisex quilted bomber jacket cut from lustrous, heavyweight 4-ply Thai raw silk in the Chrysanthemum botanical print. Tailored Parisian drop-shoulder silhouette, heavyweight cotton ribbing and an antiqued brass two-way zipper. Open pre-order, limited to 8 bespoke units.",
     availability: "atelier",
     price: 450,
     images: [
       {
         src: "/images/products/paris-jacket-quilted-silk-bomber.png",
-        alt: "Studio mockup of The Paris Jacket: a quilted silk bomber in a gold and coral botanical print on a tailor's stand",
+        alt: "Studio mockup of The Paris Jacket: a quilted silk bomber in the gold and coral Chrysanthemum print on a tailor's stand",
       },
     ],
   },
@@ -377,6 +405,7 @@ export const PIECES: Piece[] = [
   {
     slug: "tao-brass-collar-charm",
     category: "canine",
+    alsoIn: ["collectibles"],
     name: "Solid Cast Brass Mascot Pet ID Tag — Tao",
     description:
       "Heavyweight 32 mm solid brushed brass coin with a deep forest-green hard enamel inlay of Tao. Mirror-polished bevel, with a blank reverse for engraving your phone number.",
@@ -390,18 +419,50 @@ export const PIECES: Piece[] = [
     ],
   },
   {
-    slug: "mystery-blind-bag-pins",
+    slug: "guild-mystery-blind-bag-pin",
     category: "collectibles",
-    name: "Guild Mystery Blind Bag Pins (14 Mascots)",
+    name: "Guild Mystery Blind Bag Enamel Pin",
     badge: "Sealed blind bag",
     description:
-      "Airtight foil pouch containing one randomly seeded hard-enamel mascot pin with gold electroplated borders. Chase figures are randomly distributed.",
+      "Airtight matte navy foil pouch containing 1 randomly seeded hard-enamel mascot pin with gold electroplated borders and a collectible backing card. 14 mascots in the roster, including rare chase variants.",
     availability: "atelier",
     price: 15,
     images: [
       {
         src: "/images/products/blind-bag-mystery-pins.png",
         alt: "Studio mockup of the navy foil Guild Mystery Pins blind bags with an enamel Mochi Sprout pin on its card",
+      },
+    ],
+  },
+  {
+    slug: "guild-shaker-keychain-mochi",
+    category: "collectibles",
+    name: "Guild Shaker Keychain — Mochi Sprout Edition",
+    badge: "Interactive acrylic charm",
+    description:
+      "Double-walled crystal laser-cut acrylic shaker keychain with loose tumbling charms (Mochi Sprout, boba tea cup, sakura flower and a golden coin). Features a star-shaped pale gold swivel clasp and satin ribbon.",
+    availability: "atelier",
+    price: 12,
+    images: [
+      {
+        src: "/images/products/acrylic-shaker-charm-mochi.png",
+        alt: "Studio mockup of the acrylic shaker keychain holding a Mochi Sprout charm, a boba cup, sakura and a gold coin, with a star clasp and pink ribbon",
+      },
+    ],
+  },
+  {
+    slug: "eco-vinyl-sticker-pack",
+    category: "collectibles",
+    name: "Eco-Vinyl Guild Sticker Pack",
+    badge: "Recycled rPET vinyl",
+    description:
+      "Set of 4 die-cut satin stickers made from recycled rPET vinyl: Tao Explorer, Mochi Sprout, Mochi Panda and Yuki Dreamer. Scratch-resistant, waterproof, zero PVC.",
+    availability: "atelier",
+    price: 12,
+    images: [
+      {
+        src: "/images/products/eco-vinyl-sticker-pack.png",
+        alt: "Studio mockup of the four-sticker pack in its kraft card sleeve, with the stickers applied to a laptop and a notebook",
       },
     ],
   },

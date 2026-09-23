@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PIECES, TIER_LABEL, categoryOf, isBuyable } from "@/lib/catalog";
+import { PIECES, TIER_LABEL, categoriesOf, isBuyable } from "@/lib/catalog";
 import { PYRAMID } from "@/lib/production";
 import { CollectionBrowser, type CollectionItem } from "@/components/CollectionBrowser";
 import { NewsletterForm } from "@/components/NewsletterForm";
@@ -30,7 +30,7 @@ export default function Collection() {
     provenance: piece.provenance
       ? `${piece.provenance.silkGrade} · ${piece.provenance.handHours}h by hand`
       : null,
-    category: categoryOf(piece),
+    categories: categoriesOf(piece),
   }));
 
   return (

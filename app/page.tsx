@@ -410,7 +410,7 @@ export default function Home() {
               must not pick up the capsule, canine or collectible pieces
               that now share the PIECES array — they have their own drops
               below. */}
-          <ul className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-5 lg:gap-5">
             {PIECES.filter((piece) => categoryOf(piece) === "silk").map((piece, i) => (
               <li key={piece.slug} className="pop-in" style={{ ["--pop-delay" as string]: `${i * 0.07}s` }}>
                 <Link href={`/collection/${piece.slug}`} className="keyline-lift block">
@@ -677,6 +677,79 @@ export default function Home() {
                 </div>
               ))}
             </dl>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------------------
+          DROP 04 — GUILD COLLECTIBLES. Pocket-sized pieces from the
+          14-mascot universe. Same showcase-of-real-PIECES relationship as
+          Drops 02 and 03. The brass Tao tag is deliberately shown here as
+          well as in Drop 03: it is both a dog's ID tag and a mascot
+          collectible, and the catalog says so via alsoIn.
+          --------------------------------------------------------------- */}
+      <section className="border-b-2 border-[var(--foreground)]">
+        <div className="mx-auto max-w-6xl px-6 py-16 sm:py-24">
+          <p className="label text-[var(--madder)]">Drop 04</p>
+          <h2 className="pop mt-3 text-3xl sm:text-5xl">Guild collectibles</h2>
+          <p className="mt-4 max-w-xl leading-relaxed text-[var(--muted)]">
+            Pocket artifacts, acrylic shaker charms, and mystery enamel pins from the 14-mascot
+            universe.
+          </p>
+
+          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { slug: "guild-shaker-keychain-mochi", cta: "ORDER CHARM — 12 €" },
+              { slug: "guild-mystery-blind-bag-pin", cta: "PULL A PIN — 15 €" },
+              { slug: "eco-vinyl-sticker-pack", cta: "ORDER PACK — 12 €" },
+              { slug: "tao-brass-collar-charm", cta: "ACQUIRE CHARM — 35 €" },
+            ].map((item) => {
+              const piece = findPiece(item.slug);
+              if (!piece || !isBuyable(piece)) return null;
+              return (
+                <div key={item.slug} className="keyline flex flex-col bg-white">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden border-b-2 border-[var(--foreground)]">
+                    <Image
+                      src={piece.images[0].src}
+                      alt={piece.images[0].alt}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      className="object-cover"
+                    />
+                    <span className="keyline-sm label absolute left-3 top-3 bg-[var(--gold)] px-2.5 py-1 text-[0.65rem]">
+                      {piece.badge ?? "Guild collectible"}
+                    </span>
+                  </div>
+                  <div className="flex flex-1 flex-col p-5">
+                    <h3 className="display text-xl">{piece.name}</h3>
+                    <p className="pop mt-2 text-2xl text-[var(--madder)]">
+                      {CURRENCY.symbol}
+                      {piece.price}
+                    </p>
+                    <p className="mt-2 flex-1 text-sm leading-relaxed text-[var(--muted)]">
+                      {piece.description}
+                    </p>
+                    {piece.stripeUrl ? (
+                      <a
+                        href={piece.stripeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="keyline-sm label mt-6 inline-block self-start bg-[var(--gold)] px-4 py-2.5 transition-transform hover:-translate-y-0.5"
+                      >
+                        {item.cta}
+                      </a>
+                    ) : (
+                      <Link
+                        href={`/order/${piece.slug}`}
+                        className="keyline-sm label mt-6 inline-block self-start bg-[var(--gold)] px-4 py-2.5 transition-transform hover:-translate-y-0.5"
+                      >
+                        {item.cta}
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
