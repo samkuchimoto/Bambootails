@@ -6,7 +6,7 @@ import { EPISODES } from "@/lib/universe";
 export const metadata: Metadata = {
   title: "How It Is Made",
   description:
-    "The production rhythm behind the series, the toolchain that renders it, and the commercial architecture underneath a $249 scarf.",
+    "The production rhythm behind the series, the toolchain that renders it, and the commercial architecture underneath a €249 scarf.",
 };
 
 const STATUS_LABEL = {
@@ -164,7 +164,7 @@ export default function Production() {
           <p className="label text-[var(--madder)]">The architecture</p>
           <h2 className="pop mt-3 text-3xl sm:text-5xl">Four layers</h2>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[var(--muted)]">
-            A $249 scarf cannot carry paid acquisition at this margin, and was never meant to. It is
+            A €249 scarf cannot carry paid acquisition at this margin, and was never meant to. It is
             the proof the craft is real. What compounds is everything underneath it — and the layer
             with the highest margin is the cheapest object in the range.
           </p>

@@ -57,7 +57,27 @@ export type Piece = {
    * the same pattern and the placeholder-URL mistake to avoid repeating).
    */
   stripeUrl?: string;
+  /** Which shelf it lives on. Omitted means "silk" — the original range. */
+  category?: PieceCategory;
+  /** Short label shown on the card in place of the tier name. */
+  badge?: string;
 };
+
+export type PieceCategory = "silk" | "apparel" | "canine" | "collectibles";
+
+export function categoryOf(piece: Piece): PieceCategory {
+  return piece.category ?? "silk";
+}
+
+/** The /collection filter tabs. Silk and apparel share one tab: both are
+ *  the human-and-dog atelier range, as opposed to the dedicated canine
+ *  and collectible lines. */
+export const COLLECTION_TABS = [
+  { id: "all", label: "All Pieces", categories: ["silk", "apparel", "canine", "collectibles"] },
+  { id: "atelier", label: "Atelier & Apparel", categories: ["silk", "apparel"] },
+  { id: "canine", label: "Canine Prestige", categories: ["canine"] },
+  { id: "collectibles", label: "Collectibles", categories: ["collectibles"] },
+] as const satisfies readonly { id: string; label: string; categories: readonly PieceCategory[] }[];
 
 // The price ladder.
 //
@@ -80,7 +100,11 @@ export type Piece = {
 // argument had again from scratch.
 /** One place to change the currency, rather than a symbol typed into
  *  fourteen components and missed in three of them. */
-export const CURRENCY = { symbol: "$", code: "USD" } as const;
+// Euros: every price the house has quoted since launch (the 249 foulard,
+// the 85 tees, the 280 tote) is in EUR TTC, the Stripe account is French,
+// and /api/orders stamps orders with CURRENCY.code — while this said USD,
+// a 280 EUR tote would have been recorded as a 280 USD order.
+export const CURRENCY = { symbol: "€", code: "EUR" } as const;
 
 export const PRICE_TIERS = {
   /** Blind-box vinyl, plush charms, stickers. Highest margin in the
@@ -233,6 +257,7 @@ export const PIECES: Piece[] = [
   // spec this file's own header comment exists to prevent.
   {
     slug: "sl15-artist-tee-raw",
+    category: "apparel",
     name: "SL15 Artist Tee — Raw 2015 Canvas",
     description:
       "Ten years in the vault. A raw 2015 ink-and-watercolour painting, reproduced in full on 260gsm French combed organic cotton — paper grain, signature and all. Relaxed boxy cut, drop shoulder, left-chest micro-embroidery reading \"SL15.\"",
@@ -248,6 +273,7 @@ export const PIECES: Piece[] = [
   },
   {
     slug: "sl15-cyber-monolith-tee",
+    category: "apparel",
     name: "SL15 Cyber Monolith Tee — Mineral Black",
     description:
       "The 2015 runic entity, reimagined in obsidian and electric cyan. Heavyweight 280gsm enzyme-washed jersey, tonal \"Bambootails Atelier\" screenprint at the collarbone, full-back luminous print.",
@@ -263,6 +289,7 @@ export const PIECES: Piece[] = [
   },
   {
     slug: "paris-atelier-tote-sl15",
+    category: "apparel",
     name: "The Paris Atelier Tote — Bambootails x SL15",
     description:
       "Patterned, cut and hand-embroidered by an independent couture atelier in Paris — no two panels are identical. Vegetable-tanned chestnut bridle leather base and handles, unbleached French linen front, hot-stamped leather branding, full cotton drill lining.",
@@ -271,8 +298,110 @@ export const PIECES: Piece[] = [
     price: PRICE_TIERS.bespoke,
     images: [
       {
-        src: "/images/atelier/paris-atelier-tote.png",
-        alt: "The Paris Atelier Tote, hand-embroidered canvas front with a vegetable-tanned leather base, photographed in a Paris studio",
+        src: "/images/products/tote-sl15-paris-atelier.png",
+        alt: "Studio mockup of the Paris Atelier Tote: hand-embroidered linen front, chestnut leather base and a debossed Bambootails x SL15 leather patch",
+      },
+    ],
+  },
+  // The Paris Jacket graduated from CONCEPTS: it is now an open pre-order,
+  // limited to 8 bespoke units, so it lives here and no longer in the
+  // laboratory. The description deliberately doesn't name a print — the
+  // mockup shows the Chrysanthemum weave, and an earlier draft said
+  // Golden Palms; the two can't both be right until someone decides.
+  {
+    slug: "the-paris-jacket",
+    category: "apparel",
+    name: "The Paris Jacket",
+    badge: "Pre-order — 8 bespoke units",
+    description:
+      "Bespoke unisex quilted bomber jacket cut from lustrous, heavyweight 4-ply Thai raw silk in one of the house's botanical prints. Tailored Parisian drop-shoulder silhouette, heavyweight cotton ribbing and an antiqued brass two-way zipper. Open pre-order, limited to 8 bespoke units.",
+    availability: "atelier",
+    price: 450,
+    images: [
+      {
+        src: "/images/products/paris-jacket-quilted-silk-bomber.png",
+        alt: "Studio mockup of The Paris Jacket: a quilted silk bomber in a gold and coral botanical print on a tailor's stand",
+      },
+    ],
+  },
+  // Canine Prestige. Prices are literal rather than PRICE_TIERS entries:
+  // they don't sit on the scarf ladder, and inventing a tier per product
+  // just to hold one number would be structure for its own sake.
+  {
+    slug: "prestige-harness-leash-set",
+    category: "canine",
+    name: "The Prestige Harness & Leash Set",
+    badge: "Apple leather & Thai silk",
+    description:
+      "Cognac bio-based apple leather padded at all friction points with botanical silk lining. Solid antique-brass hardware and hand-burnished edges.",
+    availability: "atelier",
+    price: 120,
+    images: [
+      {
+        src: "/images/products/harness-leash-apple-leather-silk.png",
+        alt: "Studio mockup of the Prestige Harness and Leash Set in cognac leather with a botanical silk lining and antique-brass hardware",
+      },
+    ],
+  },
+  {
+    slug: "reversible-linen-bandana",
+    category: "canine",
+    name: "Reversible French Linen Dog Bandana",
+    badge: "French linen",
+    description:
+      "Natural unbleached French oatmeal linen with an embroidered Tao mascot motif, backed with terracotta geometric cotton. Double brass snaps.",
+    availability: "atelier",
+    price: 45,
+    images: [
+      {
+        src: "/images/products/bandana-french-linen-tao.png",
+        alt: "Studio mockup of the reversible linen dog bandana, oatmeal side with an embroidered Tao and a terracotta patterned reverse",
+      },
+    ],
+  },
+  {
+    slug: "leather-poop-bag-charm",
+    category: "canine",
+    name: "Artisanal Leather Waste-Bag Leash Charm",
+    description:
+      "Miniature architectural capsule pouch crafted from chestnut bridle leather with a brass eyelet and carabiner. Designed to clip onto the leash or The Paris Tote.",
+    availability: "atelier",
+    price: 48,
+    images: [
+      {
+        src: "/images/products/poop-bag-charm-chestnut-leather.png",
+        alt: "Studio mockup of the chestnut leather waste-bag pouch with a brass carabiner clip and a debossed Bambootails Paris mark",
+      },
+    ],
+  },
+  {
+    slug: "tao-brass-collar-charm",
+    category: "canine",
+    name: "Solid Cast Brass Mascot Pet ID Tag — Tao",
+    description:
+      "Heavyweight 32 mm solid brushed brass coin with a deep forest-green hard enamel inlay of Tao. Mirror-polished bevel, with a blank reverse for engraving your phone number.",
+    availability: "atelier",
+    price: 35,
+    images: [
+      {
+        src: "/images/products/brass-tag-charm-tao.png",
+        alt: "Studio mockup of the solid brass Tao pet ID tag with forest-green enamel, resting on a leather collar",
+      },
+    ],
+  },
+  {
+    slug: "mystery-blind-bag-pins",
+    category: "collectibles",
+    name: "Guild Mystery Blind Bag Pins (14 Mascots)",
+    badge: "Sealed blind bag",
+    description:
+      "Airtight foil pouch containing one randomly seeded hard-enamel mascot pin with gold electroplated borders. Chase figures are randomly distributed.",
+    availability: "atelier",
+    price: 15,
+    images: [
+      {
+        src: "/images/products/blind-bag-mystery-pins.png",
+        alt: "Studio mockup of the navy foil Guild Mystery Pins blind bags with an enamel Mochi Sprout pin on its card",
       },
     ],
   },
@@ -302,13 +431,6 @@ export const COMING_SOON: Piece[] = [
 // Imagined, and labelled as imagined everywhere it appears. These exist
 // to be voted on, not sold.
 export const CONCEPTS: Piece[] = [
-  {
-    slug: "paris-jacket",
-    name: "The Paris Jacket",
-    description: "Quilted silk, cut like a bomber. Drawn after a week of showing the scarves in Paris.",
-    availability: "concept",
-    images: [],
-  },
   {
     slug: "kimono",
     name: "The Kimono",

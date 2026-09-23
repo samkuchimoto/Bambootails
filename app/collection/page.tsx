@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import { CURRENCY, PIECES, TIER_LABEL, isBuyable } from "@/lib/catalog";
+import { PIECES, TIER_LABEL, categoryOf, isBuyable } from "@/lib/catalog";
 import { PYRAMID } from "@/lib/production";
+import { CollectionBrowser, type CollectionItem } from "@/components/CollectionBrowser";
 import { NewsletterForm } from "@/components/NewsletterForm";
 
 export const metadata: Metadata = {
   title: "Collection",
   description:
-    "Hand-rolled Thai silk, cut in numbered batches of fifty. Photographed on a real dog, in the scarf you will actually receive.",
+    "Hand-rolled Thai silk cut in numbered batches of fifty — the scarves photographed on a real dog — plus the atelier capsule, canine prestige accessories and guild collectibles.",
 };
 
 const STATUS_LABEL = { live: "In the atelier", designed: "Designed", planned: "Planned" } as const;
@@ -19,6 +19,20 @@ const STATUS_LABEL = { live: "In the atelier", designed: "Designed", planned: "P
 // someone that your prices are hypothetical.
 
 export default function Collection() {
+  // Plain data only: this crosses into a client component.
+  const items: CollectionItem[] = PIECES.map((piece) => ({
+    slug: piece.slug,
+    name: piece.name,
+    description: piece.description,
+    image: piece.images[0],
+    price: isBuyable(piece) ? piece.price : null,
+    label: piece.badge ?? (piece.tier ? TIER_LABEL[piece.tier] : null),
+    provenance: piece.provenance
+      ? `${piece.provenance.silkGrade} · ${piece.provenance.handHours}h by hand`
+      : null,
+    category: categoryOf(piece),
+  }));
+
   return (
     <div>
       <section className="field-gold relative overflow-hidden border-b-2 border-[var(--foreground)]">
@@ -42,56 +56,14 @@ export default function Collection() {
           </h1>
           <p className="mt-8 max-w-xl leading-relaxed text-[var(--foreground)]/85">
             Fifty is not a marketing number. It is how many one pair of hands can hem before the
-            season turns. Every piece here is photographed on a real dog, in the scarf you will
+            season turns. Each silk scarf here is photographed on a real dog, in the scarf you will
             actually receive.
           </p>
         </div>
       </section>
 
       <div className="mx-auto max-w-6xl px-6 py-16 sm:py-24">
-        <ul className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          {PIECES.map((piece, i) => (
-            <li
-              key={piece.slug}
-              className="pop-in"
-              style={{ ["--pop-delay" as string]: `${i * 0.07}s` }}
-            >
-              <Link href={`/collection/${piece.slug}`} className="keyline-lift block">
-                <div className="keyline relative aspect-[4/5] w-full overflow-hidden bg-black">
-                  <Image
-                    src={piece.images[0].src}
-                    alt={piece.images[0].alt}
-                    fill
-                    priority={i < 2}
-                    sizes="(max-width: 640px) 90vw, 32vw"
-                    className="object-cover"
-                  />
-                  {piece.tier && (
-                    <span className="keyline-sm label absolute left-3 top-3 bg-[var(--background)] px-2.5 py-1">
-                      {TIER_LABEL[piece.tier]}
-                    </span>
-                  )}
-                </div>
-
-                <h2 className="display mt-5 text-3xl">{piece.name}</h2>
-                {isBuyable(piece) && (
-                  <p className="pop mt-1 text-2xl text-[var(--madder)]">
-                    {CURRENCY.symbol}
-                    {piece.price}
-                  </p>
-                )}
-                <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">
-                  {piece.description}
-                </p>
-                {piece.provenance && (
-                  <p className="label mt-3 text-[var(--muted)]">
-                    {piece.provenance.silkGrade} · {piece.provenance.handHours}h by hand
-                  </p>
-                )}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <CollectionBrowser items={items} />
 
         {/* The ladder, published on the shop page rather than hidden in a
             strategy deck. The crown is not the business, and saying so
