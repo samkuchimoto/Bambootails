@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { BRAND } from "@/config/brand";
-import { CURRENCY, PIECES, CONCEPTS, isBuyable } from "@/lib/catalog";
+import { CURRENCY, PIECES, CONCEPTS, isBuyable, findPiece } from "@/lib/catalog";
 import { EPISODES, EPISODE_STATUS_LABEL, FOUNDERS, GUILD, mascotBySlug } from "@/lib/universe";
 import { HookMarquee } from "@/components/HookMarquee";
 import { HeroVideo } from "@/components/HeroVideo";
@@ -444,6 +444,125 @@ export default function Home() {
                 ["The silk", "Four-ply Thai, reeled by hand. A skilled reeler makes enough for two scarves in a day."],
                 ["The hem", "Forty minutes per edge. Four edges. It cannot be hurried and it cannot be delegated."],
                 ["The number", "Fifty per batch, numbered on the label. When they are gone the print is not cut again."],
+              ].map(([term, detail]) => (
+                <div key={term}>
+                  <dt className="display text-xl">{term}</dt>
+                  <dd className="mt-2 text-sm leading-relaxed text-[var(--foreground)]/75">
+                    {detail}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------------------
+          DROP 02 — THE ATELIER CAPSULE. Human apparel and one leather
+          good, off the dog and onto the owner. These are real pieces
+          added to lib/catalog.ts's PIECES like anything else, so their
+          own /collection and /order pages already exist for free —
+          this section is just a curated showcase of that same data,
+          the same relationship Drop 01 has to its mascot records.
+          --------------------------------------------------------------- */}
+      <section className="border-b-2 border-[var(--foreground)]">
+        <div className="mx-auto max-w-6xl px-6 py-16 sm:py-24">
+          <p className="label text-[var(--madder)]">Drop 02</p>
+          <h2 className="pop mt-3 text-3xl sm:text-5xl">The atelier capsule</h2>
+          <p className="mt-4 max-w-xl leading-relaxed text-[var(--muted)]">
+            Off the dog and onto the owner. Archival prints on real cotton, and one bag cut by hand
+            in Paris.
+          </p>
+
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+            {[
+              {
+                slug: "sl15-artist-tee-raw",
+                badge: "Limited to 50 pieces",
+                cta: "CLAIM YOUR PIECE — 85 €",
+              },
+              {
+                slug: "sl15-cyber-monolith-tee",
+                badge: "Limited to 50 pieces",
+                cta: "CLAIM YOUR PIECE — 85 €",
+              },
+              {
+                slug: "paris-atelier-tote-sl15",
+                badge: "Façonné à Paris — 15 cuts",
+                cta: "RESERVE BESPOKE CUT — 280 €",
+              },
+            ].map((item) => {
+              const piece = findPiece(item.slug);
+              if (!piece || !isBuyable(piece)) return null;
+              return (
+                <div key={item.slug} className="keyline flex flex-col bg-white">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden border-b-2 border-[var(--foreground)]">
+                    <Image
+                      src={piece.images[0].src}
+                      alt={piece.images[0].alt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover"
+                    />
+                    <span className="keyline-sm label absolute left-3 top-3 bg-[var(--gold)] px-2.5 py-1 text-[0.65rem]">
+                      {item.badge}
+                    </span>
+                  </div>
+                  <div className="flex flex-1 flex-col p-6">
+                    <h3 className="display text-xl">{piece.name}</h3>
+                    <p className="pop mt-2 text-2xl text-[var(--madder)]">
+                      {CURRENCY.symbol}
+                      {piece.price}
+                    </p>
+                    <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
+                      {piece.description}
+                    </p>
+                    {/* Prefers a real Stripe link the moment piece.stripeUrl
+                        exists (same pattern as the mascot cards). Until
+                        then, falls back to the working made-to-order
+                        confirm-by-email flow every scarf already uses —
+                        never a placeholder URL that would just be broken. */}
+                    {piece.stripeUrl ? (
+                      <a
+                        href={piece.stripeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="keyline-sm label mt-6 inline-block self-start bg-[var(--gold)] px-4 py-2.5 transition-transform hover:-translate-y-0.5"
+                      >
+                        {item.cta}
+                      </a>
+                    ) : (
+                      <Link
+                        href={`/order/${piece.slug}`}
+                        className="keyline-sm label mt-6 inline-block self-start bg-[var(--gold)] px-4 py-2.5 transition-transform hover:-translate-y-0.5"
+                      >
+                        {item.cta}
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Same ledger pattern as the Atelier section above. No hours
+              figure here — nobody's measured one for these yet, and a
+              guessed number would be exactly the kind of spec this
+              catalogue's own rules exist to keep out. */}
+          <div className="keyline mt-14 bg-[var(--gold)] p-7 sm:p-10">
+            <p className="label text-[var(--foreground)]/60">The ledger</p>
+            <h3 className="pop mt-3 text-2xl sm:text-3xl">What you are actually paying for</h3>
+            <dl className="mt-8 grid gap-8 sm:grid-cols-3">
+              {[
+                [
+                  "The material",
+                  "260-280gsm organic cotton for the tees; vegetable-tanned bridle leather and unbleached French linen for the tote.",
+                ],
+                [
+                  "The making",
+                  "Archival DTG and screenprint for the capsule tees. The tote is patterned, cut and hand-embroidered by an independent atelier in Paris — no two panels match.",
+                ],
+                ["The batch", "Fifty of each tee, fifteen totes per drop. The smallest run in the house."],
               ].map(([term, detail]) => (
                 <div key={term}>
                   <dt className="display text-xl">{term}</dt>

@@ -48,6 +48,15 @@ export type Piece = {
     /** Hours of hand work in one piece. */
     handHours: number;
   };
+  /**
+   * A real Stripe Payment Link, when one exists. Optional on purpose:
+   * most pieces route through the order-form/email flow in
+   * app/order/[slug], and setting this is a claim that instant Stripe
+   * checkout is live for this specific piece — don't set it ahead of
+   * the link actually existing (see the Mochi/Sora/Tao mascot cards for
+   * the same pattern and the placeholder-URL mistake to avoid repeating).
+   */
+  stripeUrl?: string;
 };
 
 // The price ladder.
@@ -82,10 +91,16 @@ export const PRICE_TIERS = {
   diffusion: 69,
   /** Small silk goods and the pochette. */
   accessory: 89,
+  /** Human apparel, off the dog and onto the owner: the printed and
+   *  embroidered capsule tees. */
+  apparel: 85,
   /** The flagship: hand-rolled artisan silk. Where the house begins. */
   signature: 249,
   /** A print that will not be cut again. */
   limited: 429,
+  /** Hand-assembled leather goods, cut to order by an outside atelier
+   *  rather than in-house — the smallest runs in the range. */
+  bespoke: 280,
   /** Numbered, with the number on the label. */
   collector: 549,
 } as const;
@@ -97,8 +112,10 @@ export const TIER_LABEL: Record<PriceTier, string> = {
   collectible: "Collectible",
   diffusion: "Diffusion",
   accessory: "Accessory",
+  apparel: "Atelier Capsule",
   signature: "Signature Artisan Silk",
   limited: "Limited Edition",
+  bespoke: "Bespoke — numbered cuts",
   collector: "Collector — numbered",
 };
 
@@ -208,6 +225,56 @@ export const PIECES: Piece[] = [
       techniques: ["Reverse Planning"],
       handHours: 2,
     },
+  },
+  // The Atelier Capsule — human apparel and one leather good, off the
+  // dog and onto the owner. No provenance.handHours here: unlike the
+  // silk's hand-rolled hem, nobody's given a real hours figure for these
+  // yet, and a guessed number would be exactly the kind of fabricated
+  // spec this file's own header comment exists to prevent.
+  {
+    slug: "sl15-artist-tee-raw",
+    name: "SL15 Artist Tee — Raw 2015 Canvas",
+    description:
+      "Ten years in the vault. A raw 2015 ink-and-watercolour painting, reproduced in full on 260gsm French combed organic cotton — paper grain, signature and all. Relaxed boxy cut, drop shoulder, left-chest micro-embroidery reading \"SL15.\"",
+    availability: "atelier",
+    tier: "apparel",
+    price: PRICE_TIERS.apparel,
+    images: [
+      {
+        src: "/images/atelier/sl15-artist-tee-raw.png",
+        alt: "The SL15 Artist Tee in raw ecru, front with left-chest embroidery and back with the full 2015 archival print",
+      },
+    ],
+  },
+  {
+    slug: "sl15-cyber-monolith-tee",
+    name: "SL15 Cyber Monolith Tee — Mineral Black",
+    description:
+      "The 2015 runic entity, reimagined in obsidian and electric cyan. Heavyweight 280gsm enzyme-washed jersey, tonal \"Bambootails Atelier\" screenprint at the collarbone, full-back luminous print.",
+    availability: "atelier",
+    tier: "apparel",
+    price: PRICE_TIERS.apparel,
+    images: [
+      {
+        src: "/images/atelier/sl15-cyber-monolith-tee.png",
+        alt: "The SL15 Cyber Monolith Tee in mineral black, front with a tonal collarbone print and back with the glowing runic figure",
+      },
+    ],
+  },
+  {
+    slug: "paris-atelier-tote-sl15",
+    name: "The Paris Atelier Tote — Bambootails x SL15",
+    description:
+      "Patterned, cut and hand-embroidered by an independent couture atelier in Paris — no two panels are identical. Vegetable-tanned chestnut bridle leather base and handles, unbleached French linen front, hot-stamped leather branding, full cotton drill lining.",
+    availability: "atelier",
+    tier: "bespoke",
+    price: PRICE_TIERS.bespoke,
+    images: [
+      {
+        src: "/images/atelier/paris-atelier-tote.png",
+        alt: "The Paris Atelier Tote, hand-embroidered canvas front with a vegetable-tanned leather base, photographed in a Paris studio",
+      },
+    ],
   },
 ];
 

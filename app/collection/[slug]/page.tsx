@@ -133,14 +133,27 @@ export default async function PiecePage({ params }: { params: Promise<{ slug: st
               be linked to from an episode, and leaves the product page
               about the product. */}
           <div className="mt-8">
-            <Link
-              href={`/order/${piece.slug}`}
-              className="keyline label inline-block bg-[var(--madder)] px-8 py-4 text-white transition-transform hover:-translate-y-1"
-            >
-              Order — {CURRENCY.symbol}{piece.price}
-            </Link>
+            {piece.stripeUrl ? (
+              <a
+                href={piece.stripeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="keyline label inline-block bg-[var(--madder)] px-8 py-4 text-white transition-transform hover:-translate-y-1"
+              >
+                Order — {CURRENCY.symbol}{piece.price}
+              </a>
+            ) : (
+              <Link
+                href={`/order/${piece.slug}`}
+                className="keyline label inline-block bg-[var(--madder)] px-8 py-4 text-white transition-transform hover:-translate-y-1"
+              >
+                Order — {CURRENCY.symbol}{piece.price}
+              </Link>
+            )}
             <p className="mt-3 max-w-sm text-xs leading-relaxed text-[var(--muted)]">
-              Made to order. We confirm the fit by email before anything is charged.
+              {piece.stripeUrl
+                ? "Checkout via Stripe. Ships once the current batch is cut."
+                : "Made to order. We confirm the fit by email before anything is charged."}
             </p>
           </div>
 
