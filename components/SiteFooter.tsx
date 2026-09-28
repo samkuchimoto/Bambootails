@@ -50,12 +50,22 @@ export function SiteFooter() {
             numbered batches of fifty. Based in Europe, shipping worldwide.
           </p>
 
-          <a
-            href={`mailto:${BRAND.email}`}
-            className="keyline-sm label mt-6 inline-block bg-[var(--gold)] px-4 py-2.5 text-[var(--foreground)] transition-transform hover:-translate-y-0.5"
-          >
-            {BRAND.email}
-          </a>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a
+              href={`mailto:${BRAND.email}`}
+              className="keyline-sm label inline-block bg-[var(--gold)] px-4 py-2.5 text-[var(--foreground)] transition-transform hover:-translate-y-0.5"
+            >
+              {BRAND.email}
+            </a>
+            <a
+              href={BRAND.tiktok}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="keyline-sm label inline-block bg-white px-4 py-2.5 text-[var(--foreground)] transition-transform hover:-translate-y-0.5"
+            >
+              TikTok ↗
+            </a>
+          </div>
 
           <nav aria-label="Footer" className="mt-8 flex flex-wrap gap-x-5 gap-y-2">
             {FOOTER_LINKS.map((link) => (

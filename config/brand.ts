@@ -8,6 +8,8 @@ export const BRAND = {
   name: "BambooTails",
   domain: "bambootails.com",
   email: "contact@bambootails.com",
+  // Business account, TikTok Shop approved for the physical pieces.
+  tiktok: "https://www.tiktok.com/@bambootails",
 
   // The line the whole site hangs on. "Haute couture for dogs" is the
   // brand's own positioning from the intro sheet; the second clause is

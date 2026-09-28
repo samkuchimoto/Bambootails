@@ -3,8 +3,9 @@
 // avatars, game and stream rigs). None of them is released, so none of
 // this lives in lib/catalog.ts — PIECES feeds the order flow, and a piece
 // there is a claim that it can be bought and delivered. What exists today
-// is the art on this page; the rigs are not built. Each character gets a
-// vote instead of a price, the same mechanism as the laboratory.
+// is the art on this page; the rigs are not built. Until a character has a
+// real listing link (see DigitalCharacter.links), its card shows a vote
+// instead of buy buttons — the same mechanism as the laboratory.
 
 export type DigitalImage = { src: string; alt: string; width: number; height: number; caption?: string };
 
@@ -19,6 +20,24 @@ export type DigitalCharacter = {
   images: DigitalImage[];
   /** Named looks, where they have been named. */
   looks?: string[];
+  /** Real listing URLs, once the character is released. Until there is
+   *  one, the card shows the vote rather than buy buttons. */
+  links?: Partial<Record<DigitalChannel, string>>;
+};
+
+export type DigitalChannel = "direct" | "fab" | "unity" | "booth" | "vgen";
+
+// Where a released character is sold, in the order offered: the first
+// channel a character has a link for becomes its main button, the rest go
+// under "Also on". No TikTok Shop: its EU policy (updated 6 Aug 2026)
+// lists digital media and downloads as unsupported, so it carries the
+// physical pieces only.
+export const CHANNELS: Record<DigitalChannel, { name: string; note: string }> = {
+  direct: { name: "BambooTails", note: "Every format" },
+  fab: { name: "Fab", note: "Unreal Engine" },
+  unity: { name: "Unity Asset Store", note: "Unity" },
+  booth: { name: "Booth", note: "VRM for VRChat and VTubing" },
+  vgen: { name: "VGen", note: "Creator license" },
 };
 
 /** Planned release tiers, in the site currency. Shown as "at release":

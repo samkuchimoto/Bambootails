@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { BRAND } from "@/config/brand";
 import { CURRENCY } from "@/lib/catalog";
-import { LIVING_RELICS, RELEASE_TIERS, SEVEN_BRANCHES } from "@/lib/digital";
+import {
+  CHANNELS,
+  LIVING_RELICS,
+  RELEASE_TIERS,
+  SEVEN_BRANCHES,
+  type DigitalChannel,
+  type DigitalCharacter,
+} from "@/lib/digital";
 import { ConceptVote } from "@/components/ConceptVote";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { ScrollToCharacter } from "@/components/ScrollToCharacter";
@@ -17,6 +25,70 @@ export const metadata: Metadata = {
 
 function doneNote(name: string) {
   return `Noted — you want ${name}. The most-wanted character is rigged first, and you hear the day it's ready.`;
+}
+
+const CHANNEL_ORDER = Object.keys(CHANNELS) as DigitalChannel[];
+
+// The vote while a character has no listing links; once it has any, a main
+// buy button for the first channel and the rest under "Also on". Compact
+// is for the narrow Capsule 01 cards.
+function CharacterAction({ c, compact = false }: { c: DigitalCharacter; compact?: boolean }) {
+  const live = CHANNEL_ORDER.filter((k) => c.links?.[k]);
+  if (live.length === 0) {
+    return (
+      <>
+        {!compact && (
+          <p className="label mt-6 text-[var(--muted)]">Not released — the rig isn&apos;t built yet</p>
+        )}
+        <div className="mt-4">
+          <ConceptVote slug={`digital-${c.id}`} name={c.name} doneNote={doneNote(c.name)} />
+        </div>
+      </>
+    );
+  }
+  const [main, ...more] = live;
+  return (
+    <div className="mt-6">
+      {/* The planned tiers are the direct prices; a marketplace sets its own. */}
+      {main === "direct" && !compact && (
+        <p className="label text-[var(--muted)]">
+          Single Cut {CURRENCY.symbol}
+          {RELEASE_TIERS.single} · Master Dossier {CURRENCY.symbol}
+          {RELEASE_TIERS.master}
+        </p>
+      )}
+      <a
+        href={c.links?.[main]}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="keyline-sm label mt-3 inline-block bg-[var(--gold)] px-4 py-2.5 transition-transform hover:-translate-y-0.5"
+      >
+        {main === "direct" ? "Buy direct" : `Buy on ${CHANNELS[main].name}`} ↗
+      </a>
+      {more.length > 0 && (
+        <details className="mt-3">
+          <summary className="label cursor-pointer text-[var(--muted)]">
+            Also on {more.map((k) => CHANNELS[k].name).join(", ")}
+          </summary>
+          <ul className="mt-2 space-y-1.5">
+            {more.map((k) => (
+              <li key={k}>
+                <a
+                  href={c.links?.[k]}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="keyline-sm flex items-center justify-between gap-3 bg-white px-3 py-2 text-sm"
+                >
+                  <span>{CHANNELS[k].name}</span>
+                  <span className="text-xs text-[var(--muted)]">{CHANNELS[k].note} ↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </details>
+      )}
+    </div>
+  );
 }
 
 export default function DigitalAtelier() {
@@ -61,6 +133,16 @@ export default function DigitalAtelier() {
               className="keyline label bg-white px-6 py-3 text-[var(--foreground)] transition-transform hover:-translate-y-0.5"
             >
               Capsule 02 — The living relics
+            </a>
+            {/* A plain https link: on a phone it opens the TikTok app on its
+                own, no custom-scheme fallback needed. */}
+            <a
+              href={BRAND.tiktok}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="keyline label bg-[var(--foreground)] px-6 py-3 text-white transition-transform hover:-translate-y-0.5"
+            >
+              BambooTails on TikTok ↗
             </a>
           </div>
         </div>
@@ -107,10 +189,7 @@ export default function DigitalAtelier() {
               <h3 className="pop mt-3 text-4xl sm:text-5xl">{lunarr.name}</h3>
               <p className="display mt-1 text-xl text-[var(--muted)]">{lunarr.title}</p>
               <p className="mt-5 leading-relaxed text-[var(--muted)]">{lunarr.description}</p>
-              <p className="label mt-6 text-[var(--muted)]">Not released — the rig isn&apos;t built yet</p>
-              <div className="mt-4">
-                <ConceptVote slug={`digital-${lunarr.id}`} name={lunarr.name} doneNote={doneNote(lunarr.name)} />
-              </div>
+              <CharacterAction c={lunarr} />
             </div>
           </article>
 
@@ -130,9 +209,7 @@ export default function DigitalAtelier() {
                   <h3 className="pop text-2xl">{c.name}</h3>
                   <p className="display text-lg text-[var(--muted)]">{c.title}</p>
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-[var(--muted)]">{c.description}</p>
-                  <div className="mt-4">
-                    <ConceptVote slug={`digital-${c.id}`} name={c.name} doneNote={doneNote(c.name)} />
-                  </div>
+                  <CharacterAction c={c} compact />
                 </div>
               </li>
             ))}
@@ -204,10 +281,7 @@ export default function DigitalAtelier() {
                         )}
                       </figure>
                     ))}
-                    <p className="label mt-6 text-[var(--muted)]">Not released — the rig isn&apos;t built yet</p>
-                    <div className="mt-4">
-                      <ConceptVote slug={`digital-${c.id}`} name={c.name} doneNote={doneNote(c.name)} />
-                    </div>
+                    <CharacterAction c={c} />
                   </div>
                 </article>
               );
