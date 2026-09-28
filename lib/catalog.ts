@@ -65,6 +65,9 @@ export type Piece = {
   alsoIn?: PieceCategory[];
   /** Short label shown on the card in place of the tier name. */
   badge?: string;
+  /** Product-page button text, when "Order — €X" isn't the right verb
+   *  (a pre-order, a reservation). */
+  orderCta?: string;
 };
 
 export type PieceCategory = "silk" | "apparel" | "canine" | "collectibles";
@@ -215,6 +218,7 @@ export const PIECES: Piece[] = [
     category: "silk",
     name: "Heritage Thai Silk Scarf — Chrysanthemum Collector Box",
     badge: "Limited to 50 cuts",
+    orderCta: "RESERVE CUT — 249 €",
     description:
       "Hand-reeled 4-ply Thai raw silk in the historic Chrysanthemum botanical print, finished with hand-rolled edges (roulotté main). Presented in a rigid matte-black presentation box with archival tissue.",
     availability: "atelier",
@@ -341,6 +345,7 @@ export const PIECES: Piece[] = [
     category: "apparel",
     name: "The Paris Jacket",
     badge: "Pre-order — 8 bespoke units",
+    orderCta: "PRE-ORDER BESPOKE JACKET — 450 €",
     description:
       "Bespoke unisex quilted bomber jacket cut from lustrous, heavyweight 4-ply Thai raw silk in the Chrysanthemum botanical print. Tailored Parisian drop-shoulder silhouette, heavyweight cotton ribbing and an antiqued brass two-way zipper. Open pre-order, limited to 8 bespoke units.",
     availability: "atelier",

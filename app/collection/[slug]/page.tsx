@@ -140,14 +140,14 @@ export default async function PiecePage({ params }: { params: Promise<{ slug: st
                 rel="noopener noreferrer"
                 className="keyline label inline-block bg-[var(--madder)] px-8 py-4 text-white transition-transform hover:-translate-y-1"
               >
-                Order — {CURRENCY.symbol}{piece.price}
+                {piece.orderCta ?? `Order — ${CURRENCY.symbol}${piece.price}`}
               </a>
             ) : (
               <Link
                 href={`/order/${piece.slug}`}
                 className="keyline label inline-block bg-[var(--madder)] px-8 py-4 text-white transition-transform hover:-translate-y-1"
               >
-                Order — {CURRENCY.symbol}{piece.price}
+                {piece.orderCta ?? `Order — ${CURRENCY.symbol}${piece.price}`}
               </Link>
             )}
             <p className="mt-3 max-w-sm text-xs leading-relaxed text-[var(--muted)]">

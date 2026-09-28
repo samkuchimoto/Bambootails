@@ -29,7 +29,9 @@ export function CastCharge({ className = "" }: { className?: string }) {
   const runners = [...GUILD, ...FOUNDERS];
 
   return (
-    <div className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`} aria-hidden>
+    // isolate: each runner's zIndex orders the runners among themselves; without
+    // its own stacking context they rose above the hero's text and cards.
+    <div className={`pointer-events-none absolute inset-0 isolate overflow-hidden ${className}`} aria-hidden>
       {/* Directional lines under the whole group — the ground moving. */}
       <div className="speedlines-h absolute inset-0 text-white" />
 

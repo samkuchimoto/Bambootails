@@ -684,9 +684,9 @@ export default function Home() {
       {/* ---------------------------------------------------------------
           DROP 04 — GUILD COLLECTIBLES. Pocket-sized pieces from the
           14-mascot universe. Same showcase-of-real-PIECES relationship as
-          Drops 02 and 03. The brass Tao tag is deliberately shown here as
-          well as in Drop 03: it is both a dog's ID tag and a mascot
-          collectible, and the catalog says so via alsoIn.
+          Drops 02 and 03. The brass Tao tag is left to Drop 03 here —
+          showing it in both sections read as a duplicate — but it stays
+          in the Collectibles filter on /collection via alsoIn.
           --------------------------------------------------------------- */}
       <section className="border-b-2 border-[var(--foreground)]">
         <div className="mx-auto max-w-6xl px-6 py-16 sm:py-24">
@@ -697,12 +697,11 @@ export default function Home() {
             universe.
           </p>
 
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
             {[
               { slug: "guild-shaker-keychain-mochi", cta: "ORDER CHARM — 12 €" },
               { slug: "guild-mystery-blind-bag-pin", cta: "PULL A PIN — 15 €" },
               { slug: "eco-vinyl-sticker-pack", cta: "ORDER PACK — 12 €" },
-              { slug: "tao-brass-collar-charm", cta: "ACQUIRE CHARM — 35 €" },
             ].map((item) => {
               const piece = findPiece(item.slug);
               if (!piece || !isBuyable(piece)) return null;
@@ -713,7 +712,7 @@ export default function Home() {
                       src={piece.images[0].src}
                       alt={piece.images[0].alt}
                       fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      sizes="(max-width: 768px) 100vw, 33vw"
                       className="object-cover"
                     />
                     <span className="keyline-sm label absolute left-3 top-3 bg-[var(--gold)] px-2.5 py-1 text-[0.65rem]">
