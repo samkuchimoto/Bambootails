@@ -20,7 +20,17 @@ import { BRAND } from "@/config/brand";
 
 type Status = "idle" | "sending" | "voted" | "unconfigured" | "error";
 
-export function ConceptVote({ slug, name }: { slug: string; name: string }) {
+export function ConceptVote({
+  slug,
+  name,
+  doneNote,
+}: {
+  slug: string;
+  name: string;
+  /** Replaces the default "we make fifty" confirmation, which only fits
+   *  physical pieces. */
+  doneNote?: string;
+}) {
   const [status, setStatus] = useState<Status>("idle");
   const [email, setEmail] = useState("");
   const [open, setOpen] = useState(false);
@@ -50,7 +60,7 @@ export function ConceptVote({ slug, name }: { slug: string; name: string }) {
   if (status === "voted") {
     return (
       <p className="text-sm text-[var(--foreground)]">
-        Noted — you want {name}. If enough people agree, we make fifty and you hear first.
+        {doneNote ?? `Noted — you want ${name}. If enough people agree, we make fifty and you hear first.`}
       </p>
     );
   }

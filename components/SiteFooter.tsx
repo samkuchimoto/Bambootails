@@ -15,6 +15,7 @@ const FOOTER_LINKS = [
   { href: "/series", label: "The Sagas" },
   { href: "/collection", label: "Collection" },
   { href: "/atelier", label: "The Atelier" },
+  { href: "/digital-atelier", label: "The Digital Atelier" },
   { href: "/laboratory", label: "The Laboratory" },
   { href: "/production", label: "How it's made" },
   { href: "/get-app", label: "The app" },
